@@ -3,17 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "mongoose": "^5.10.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^24.9.1",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^12.12.54",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "typescript": "^3.7.5"
+    "concurrently": "^5.3.0",
+    "ts-node-dev": "^1.0.0-pre.57"
   },
   "contributors": [
     {
@@ -45,7 +52,10 @@
     "url": "https://github.com/reduardo7/diplomatura.js-grupo-4/issues"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cd backend ; ts-node index.ts",
+    "start:dev": "concurrently --kill-others \"npm run start:back\" \"npm run start:front\"",
+    "start:front": "react-scripts start",
+    "start:back": "cd backend ; ts-node-dev index.ts",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
