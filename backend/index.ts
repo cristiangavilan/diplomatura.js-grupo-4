@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './api';
-import { API_ENDPOINT, SERVER_PORT } from './config';
+import { API_ENDPOINT, SERVER_PORT } from 'memegram-commons/config';
 
 const app = express();
 

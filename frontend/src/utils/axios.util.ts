@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getLocalJwt } from './jwt.util';
-import { SERVER_API } from '../config';
+import { SERVER_API } from 'memegram-commons/config';
 
 export let axiosInstance: AxiosInstance;
 

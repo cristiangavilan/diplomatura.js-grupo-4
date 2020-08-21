@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { Document } from 'mongoose';
-import { IUser } from '../../src/types/models/User';
+import { IUser } from 'memegram-commons/models/User';
 
 export interface IUserModel extends IUser, Document {
   password: String;

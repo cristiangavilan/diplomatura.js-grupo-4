@@ -9,7 +9,7 @@ node_modules
 /coverage
 
 # production
-/build
+build
 
 # misc
 .DS_Store
@@ -24,4 +24,4 @@ yarn-error.log*
 
 .history
 
-/.env
+.env

@@ -1,6 +1,6 @@
 export interface IUser {
   username: String;
   email: String;
-  profilePicture?: Buffer;
+  profilePicture?: string;
   role: 'user' | 'admin';
 }
