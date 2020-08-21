@@ -26,6 +26,7 @@ export const Login = () => {
     <div>
       <h1>Login Page</h1>
       <button
+        className="btn btn-lg btn-pink"
         onClick={() => {
           onLogin();
         }}
