@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getLocalJwt } from './jwt.util';
+import { SERVER_API } from '../config';
 
 export let axiosInstance: AxiosInstance;
 
@@ -12,7 +13,7 @@ export const initAxiosInstance = () => {
   }
 
   axiosInstance = axios.create({
-    baseURL: process.env.SERVER_URL,
+    baseURL: SERVER_API,
     headers,
   });
 };

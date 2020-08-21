@@ -7,6 +7,8 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.2",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "local-storage": "^2.0.0",
     "mongoose": "^5.10.0",
@@ -65,12 +67,11 @@
   "scripts": {
     "start": "cd backend && ts-node index.ts",
     "start:dev": "concurrently --kill-others \"npm run start:back\" \"npm run start:front\"",
-    "start:front": ". .env && PORT=${FRONT_PORT} react-scripts start",
-    "start:back": ". .env && cd backend && ts-node-dev index.ts",
+    "start:front": "cross-env PORT=3001 react-scripts start",
+    "start:back": "cd backend && ts-node-dev index.ts",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install": "[ -f .env ] || cp .env.example .env"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
