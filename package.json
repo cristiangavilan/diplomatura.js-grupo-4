@@ -69,7 +69,8 @@
     "start:back": ". .env && cd backend && ts-node-dev index.ts",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install": "[ -f .env ] || cp .env.example .env"
   },
   "eslintConfig": {
     "extends": "react-app"
