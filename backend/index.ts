@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './api';
-
-const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) || 3000 : 3000;
-const API_ENDPOINT = process.env.API_ENDPOINT || '/api';
+import { API_ENDPOINT, SERVER_PORT } from './config';
 
 const app = express();
 
