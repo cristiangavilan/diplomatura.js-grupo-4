@@ -1,7 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { IUser } from '../../types/models/User';
+import { Document } from 'mongoose';
+import { IUser } from '../../src/types/models/User';
 
-export const UserSchema = new Schema<IUser>({
+export interface IUserModel extends IUser, Document {
+  password: String;
+}
+
+export const UserSchema = new Schema<IUserModel>({
   username: String,
   email: String,
   password: String,
@@ -12,6 +17,4 @@ export const UserSchema = new Schema<IUser>({
   },
 });
 
-export const User = mongoose.model('User', UserSchema);
-
-// User.findOne({}).then((u: IUser) => u.username);
+export const User = mongoose.model<IUserModel>('User', UserSchema);
