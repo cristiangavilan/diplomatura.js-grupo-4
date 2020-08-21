@@ -1,12 +1,29 @@
 import React from 'react';
-import logo from '../assets/images/logo.svg';
-import { EjemploProps } from '../../types/EjemploParams';
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../assets/images/logo.png';
 
-export default (props: EjemploProps) => {
+export const Navbar = () => {
   return (
-    <header>
-      <img src={logo} alt="logo" />
-      <h1>{props.title}</h1>
-    </header>
+    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <Link className="navbar-brand" to="/">
+        <img src={logo} alt="logo" width="200px" />
+      </Link>
+
+      <div className="navbar-collapse">
+        <div className="navbar-nav">
+          <NavLink activeClassName="active" className="nav-item nav-link" exact to="/">
+            Home
+          </NavLink>
+        </div>
+      </div>
+
+      <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul className="navbar-nav ml-auto">
+          <NavLink activeClassName="active" className="nav-item nav-link" exact to="/login">
+            Login
+          </NavLink>
+        </ul>
+      </div>
+    </nav>
   );
 };

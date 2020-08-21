@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.5.2",
     "mongoose": "^5.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.7.5"
+    "ts-node": "^8.10.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -19,15 +20,19 @@
     "@types/node": "^12.12.54",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
     "concurrently": "^5.3.0",
-    "ts-node-dev": "^1.0.0-pre.57"
+    "ts-node-dev": "^1.0.0-pre.57",
+    "typescript": "^3.9.7"
   },
   "contributors": [
     {
       "name": "Maria Jose Rotter"
     },
     {
-      "name": "Cristian Gavilan"
+      "name": "Cristian Gavilan",
+      "email": "cristiangavilan@gmail.com",
+      "url": "https://github.com/cristiangavilan"
     },
     {
       "name": "Juan Luis Saavedra"
