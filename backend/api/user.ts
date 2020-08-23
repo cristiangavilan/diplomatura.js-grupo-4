@@ -1,5 +1,5 @@
 import express from 'express';
-import { IUser } from '../../src/types/models/User';
+import { IUser } from 'memegram-commons/models/User';
 
 const router = express.Router();
 

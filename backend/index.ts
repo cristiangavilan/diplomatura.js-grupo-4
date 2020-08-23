@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './api';
-import { API_ENDPOINT, SERVER_PORT } from './config';
 
+const { API_ENDPOINT, SERVER_PORT } = process.env;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));

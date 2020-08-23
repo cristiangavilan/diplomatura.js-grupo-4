@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import { produce, Draft } from 'immer';
+import { IUser } from 'memegram-commons/models/User';
 import { createInitialState } from './createInitialState';
-import { IUser } from '../types/models/User';
 
 type DraftEditor<S> = (draft: Draft<S>) => void;
 type Produce = (mutateFn: DraftEditor<State>) => void;

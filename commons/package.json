@@ -1,0 +1,41 @@
+{
+  "name": "memegram-commons",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "contributors": [
+    {
+      "name": "Maria Jose Rotter"
+    },
+    {
+      "name": "Cristian Gavilan",
+      "email": "cristiangavilan@gmail.com",
+      "url": "https://github.com/cristiangavilan"
+    },
+    {
+      "name": "Juan Luis Saavedra"
+    },
+    {
+      "name": "Eduardo Cuomo",
+      "email": "reduardo7@gmail.com",
+      "url": "https://github.com/reduardo7"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reduardo7/diplomatura.js-grupo-4.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "^8.10.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^12.12.54",
+    "ts-node-dev": "^1.0.0-pre.57",
+    "typescript": "^3.9.7"
+  }
+}

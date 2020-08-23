@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:3.6
+    ports:
+      - 27017:27017
+    volumes:
+      - db_mongo:/data/db
+      # - ./scripts/update-db-from-remote.sh:/docker-entrypoint-initdb.d/
+
+volumes:
+  db_mongo:

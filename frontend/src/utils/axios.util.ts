@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getLocalJwt } from './jwt.util';
-import { SERVER_API } from '../config';
+const SERVER_API = `${process.env.SERVER_URL}:${process.env.SERVER_PORT}${process.env.API_ENDPOINT}`;
 
 export let axiosInstance: AxiosInstance;
 
