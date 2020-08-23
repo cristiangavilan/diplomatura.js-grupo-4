@@ -58,9 +58,9 @@
   },
   "scripts": {
     "start": "env-cmd -f ../commons/.env react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "env-cmd -f ../commons/.env react-scripts build",
+    "test": "env-cmd -f ../commons/.env react-scripts test",
+    "eject": "env-cmd -f ../commons/.env react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
