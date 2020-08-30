@@ -7,6 +7,8 @@ import passport from 'passport';
 import passportM from './middlewares/passport';
 
 //rutas
+import reactRoutes from './routes/react.routes';
+import errorsRoutes from './routes/errors.routes';
 import usuarioRoute from './routes/usuario.routes';
 import loginRoute from './routes/login.routes';
 import { IUserModel, User } from './models/User.model';
@@ -53,6 +55,8 @@ interface UserSession {
   // rutas cargadas
   app.use(baseApi, usuarioRoute);
   app.use(baseApi, loginRoute);
+  app.use(reactRoutes);
+  app.use(errorsRoutes);
 
   app.listen(parseInt(SERVER_PORT || '3000'), () => {
     console.info(`Server listening at \x1b[32m${SERVER_PORT}\x1b[0m`);
