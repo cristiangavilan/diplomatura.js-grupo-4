@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User, { IUserModel } from '../models/User.model';
+import { IUserModel } from '../models/User.model';
 const JWTKEY = process.env.JWTKEY;
 
 export class Auth {
@@ -20,8 +20,16 @@ export class Auth {
   // Crea el token con los datos de sesión
 
   static generarToken(user: IUserModel) {
-    return jwt.sign({ id: user.id, username: user.username, email: user.email }, `${JWTKEY}`, {
-      expiresIn: this.expiresIn,
-    });
+    return jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+      `${JWTKEY}`,
+      {
+        expiresIn: this.expiresIn,
+      }
+    );
   }
 }

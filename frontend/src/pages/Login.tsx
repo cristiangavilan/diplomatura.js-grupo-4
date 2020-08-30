@@ -14,7 +14,6 @@ export const Login = () => {
       currentState.user = {
         username: 'foo',
         email: 'foo@server.com',
-        role: 'user',
       };
     });
 

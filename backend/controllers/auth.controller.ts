@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express';
-import User, { IUserModel } from '../models/User.model';
+import { Request, Response } from 'express';
+import { User } from '../models/User.model';
 import { Auth } from '../helpers/jwt';
 
 export const loginUsuario = async (req: Request, res: Response): Promise<Response> => {

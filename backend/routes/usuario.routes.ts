@@ -7,13 +7,14 @@ import {
   delUsuario,
   updateUsuarioByID,
 } from '../controllers/user.controller';
+import { validateLogin } from '../middlewares/passport';
 
 const router = Router();
 
 router.post('/user', crearUsuario);
-router.put('/user/:id', passport.authenticate('jwt', { session: false }), updateUsuarioByID);
-router.get('/users', passport.authenticate('jwt', { session: false }), getUsuarios);
-router.get('/user/:id', passport.authenticate('jwt', { session: false }), getUsuarioByID);
-router.delete('/user/:id', passport.authenticate('jwt', { session: false }), delUsuario);
+router.put('/user/:id', validateLogin, updateUsuarioByID);
+router.get('/users', validateLogin, getUsuarios);
+router.get('/user/:id', validateLogin, getUsuarioByID);
+router.delete('/user/:id', validateLogin, delUsuario);
 
 export default router;

@@ -1,19 +1,13 @@
 import { model, Schema, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 const uniqueValidator = require('mongoose-unique-validator');
+import { IUser } from 'memegram-commons/models/User';
 
-export interface IUserModel extends Document {
-  username: string;
-  email: string;
-  password: string;
-  img: string;
-  signupDate: string;
-  lastLogin: Number;
-  google: string;
+export interface IUserModel extends IUser, Document {
   comparePassword: (password: string) => Promise<Boolean>;
 }
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
   username: { type: String, unique: true, required: true, lowercase: true },
   email: { type: String, unique: true, required: true, lowercase: true },
   password: { type: String, required: true },
@@ -44,4 +38,4 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
   return await bcrypt.compare(password, this.password);
 };
 
-export default model<IUserModel>('User', UserSchema);
+export const User = model<IUserModel>('User', UserSchema);

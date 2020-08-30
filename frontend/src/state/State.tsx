@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { produce, Draft } from 'immer';
-import { IUser } from 'memegram-commons/models/User';
+import { IUserAPI } from 'memegram-commons/models/User';
 import { createInitialState } from './createInitialState';
 
 type DraftEditor<S> = (draft: Draft<S>) => void;
@@ -9,7 +9,7 @@ type StateWithProduce = State & { produce: Produce };
 
 export default interface State {
   loggedIn: boolean;
-  user?: IUser;
+  user?: IUserAPI;
 }
 
 export const AppStateContext = createContext({} as StateWithProduce);

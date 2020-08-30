@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express';
-import User, { IUserModel } from '../models/User.model';
+import { Request, Response } from 'express';
+import { User, IUserModel } from '../models/User.model';
 
 export const crearUsuario = async (req: Request, res: Response) => {
   if (!req.body) {
@@ -23,9 +23,8 @@ export const crearUsuario = async (req: Request, res: Response) => {
 };
 
 export const updateUsuarioByID = async (req: Request, res: Response) => {
-  let id = req.session.id;
   try {
-    const usuarioDB = await User.findById(id);
+    const usuarioDB = req.session?.user;
 
     if (!usuarioDB) {
       return res.status(404).json({
@@ -63,7 +62,9 @@ export const updateUsuarioByID = async (req: Request, res: Response) => {
         msg: 'Usuario de google no pueden cambiar su correo',
       });
     }
-    const usuarioActualizado = await User.findByIdAndUpdate(id, campos, { new: true });
+
+    const usuarioActualizado = await User.findByIdAndUpdate(usuarioDB._id, campos, { new: true });
+
     res.json({
       ok: true,
       usuario: usuarioActualizado,
