@@ -1,44 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { useAppState } from '../state';
 
 export const Navbar = () => {
   const state = useAppState();
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
-      <Link className="navbar-brand" to="/">
-        <img src={logo} alt="logo" width="200px" />
-      </Link>
-
-      <div className="navbar-collapse">
-        <div className="navbar-nav">
-          <NavLink activeClassName="active" className="nav-item nav-link" exact to="/">
-            Home
-          </NavLink>
+      <div className="row">
+        <div className="col">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} alt="logo" width="100%" style={{ maxWidth: 300 }} />
+          </Link>
+        </div>
+        <div className="col text-right">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded={!isNavCollapsed ? true : false}
+            aria-label="Toggle navigation"
+            onClick={handleNavCollapse}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
         </div>
       </div>
 
-      {state.loggedIn || (
-        <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-          <ul className="navbar-nav ml-auto">
-            <NavLink activeClassName="active" className="nav-item nav-link" exact to="/login">
-              Login
+      <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          <li>
+            <NavLink activeClassName="active" className="nav-item nav-link" exact to="/">
+              Home
             </NavLink>
-          </ul>
-        </div>
-      )}
+          </li>
+          {state.loggedIn || (
+            <li>
+              <NavLink activeClassName="active" className="nav-item nav-link" exact to="/login">
+                Login
+              </NavLink>
+            </li>
+          )}
 
-      {state.loggedIn && (
-        <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-          <ul className="navbar-nav ml-auto">
-            <NavLink activeClassName="active" className="nav-item nav-link" exact to="/logout">
-              Logout
-            </NavLink>
-          </ul>
-        </div>
-      )}
+          {state.loggedIn && (
+            <li>
+              <NavLink activeClassName="active" className="nav-item nav-link" exact to="/logout">
+                Logout
+              </NavLink>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
   );
 };

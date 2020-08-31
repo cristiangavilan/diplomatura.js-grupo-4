@@ -12,6 +12,7 @@ export const Login = () => {
       currentState.loggedIn = true;
 
       currentState.user = {
+        _id: 'ijlñsjsos9s7shs',
         username: 'foo',
         email: 'foo@server.com',
       };
