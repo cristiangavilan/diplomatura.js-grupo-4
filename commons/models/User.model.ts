@@ -1,4 +1,5 @@
-export interface IUserAPI {
+import { IBase } from './Base.model';
+export interface IUser extends IBase {
   username: string;
   email: string;
   img?: string;
@@ -6,7 +7,7 @@ export interface IUserAPI {
   lastLogin?: Number;
 }
 
-export interface IUser extends IUserAPI {
+export interface IUserDB extends IUser {
   password: string;
   google: string;
 }
