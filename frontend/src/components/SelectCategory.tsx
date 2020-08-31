@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICategory } from '../../../commons/models/Category.model';
+import { ICategory } from 'memegram-commons/models/Category.model';
 
 export const SelectCategory = ({ name }: ICategory) => {
   return (
