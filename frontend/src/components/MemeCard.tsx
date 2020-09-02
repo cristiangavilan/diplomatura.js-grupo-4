@@ -1,11 +1,13 @@
 import React from 'react';
+import { IMeme } from '../../../commons/models/Meme.model';
 
-export const MemeCard = () => {
+export const MemeCard = ({ title, filename }: IMeme) => {
   return (
     <div className="card border-pink">
       <div className="card-header text-capitalize">
         <img className="rounded" src="https://image.flaticon.com/icons/png/512/64/64572.png" alt="user" width="30" />{' '}
-        <strong>la pelota no se mancha</strong>
+        <strong>{title}</strong>
+
         {/* <div className="row">
           <div className="col-9">
           </div>
@@ -14,11 +16,8 @@ export const MemeCard = () => {
         </div> */}
       </div>
       <div className="card-body">
-        <img
-          src="https://image.freepik.com/foto-gratis/jugadores-futbol-soccer-competencia-equipo-rojo-azul-estadio-deportivo_43569-10.jpg"
-          alt="Futbol"
-          width="100%"
-        />
+        <img src={filename} alt="Futbol" width="100%" />
+
         <div className="row mt-2">
           <div className="col text-left">150 comentarios</div>
           <div className="col text-right">
