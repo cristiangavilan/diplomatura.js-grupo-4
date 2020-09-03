@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <div className="container p-2">
       {/* {state.loggedIn && <h3>Welcome {state.user?.username}!</h3>} */}
-      <SelectCategory setCategory={setCategory} />
+      <SelectCategory onSelect={(category) => setCategory(category)} />
       <MemeGrid category={category} />
       <TabBar />
     </div>

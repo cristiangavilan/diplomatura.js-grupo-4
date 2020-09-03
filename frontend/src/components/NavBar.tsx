@@ -35,7 +35,6 @@ export const Navbar = () => {
       <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li onClick={handleNavCollapse}>
-
             <NavLink activeClassName="active" className="nav-item nav-link" exact to="/">
               Home
             </NavLink>
