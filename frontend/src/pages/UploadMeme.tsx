@@ -1,5 +1,6 @@
 import React from 'react';
 import InputMeme from '../components/InputMeme';
+import { TabBar } from '../components/TabBar';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { Meme } from 'memegram-commons/models/Meme.model';
 
@@ -17,8 +18,12 @@ const getMemeToSave = (meme: Meme) => {
 
 export const UploadMeme = () => {
   return (
-    <div>
-      <InputMeme categories={categories} onGetMemeToSave={getMemeToSave} />
+    <div className="container mb-4">
+      <div className="row">
+        <div className="col text-center">
+          <InputMeme categories={categories} onGetMemeToSave={getMemeToSave} />
+        </div>
+      </div>
     </div>
   );
 };

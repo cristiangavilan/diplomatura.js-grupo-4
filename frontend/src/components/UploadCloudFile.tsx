@@ -45,9 +45,13 @@ const UploadCloudFile = ({ onGetUrlImage }: TUploadCloudFileProps) => {
   };
 
   return (
-    <button className="btn btn-sm btn-outline-pink" onClick={uploadWidget}>
-      <i className="fa fa-cloud-upload"></i> Imagen Meme
-    </button>
+    <div className="row mt-2">
+      <div className="col text-center">
+        <button className="btn btn-lg btn-outline-pink" onClick={uploadWidget}>
+          <i className="fa fa-cloud-upload"></i> Imagen Meme
+        </button>
+      </div>
+    </div>
   );
 };
 

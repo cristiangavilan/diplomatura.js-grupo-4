@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Navbar } from '../components/NavBar';
+import { TabBar } from '../components/TabBar';
 import { Login } from '../pages/Login';
 import { Logout } from '../pages/Logout';
 import { Home } from '../pages/Home';
@@ -23,9 +24,10 @@ export const AppRouter = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/meme-detail" component={MemeDetail} />
           <Route path="/upload-meme" component={UploadMeme} />
-
           <Redirect to="/" />
         </Switch>
+
+        <TabBar />
       </div>
     </Router>
   );
