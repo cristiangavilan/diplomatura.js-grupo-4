@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 export const TabBar = () => {
   return (
-    <div className="fixed-bottom p-3 bg-light">
+    <div className="fixed-bottom float-none bg-light p-4">
       <div className="row">
         <div className="col">
           <i className="fas fa-home"></i> Home
@@ -12,6 +13,11 @@ export const TabBar = () => {
         </div>
         <div className="col">
           <i className="fas fa-search"></i> Category
+        </div>
+        <div className="col">
+          <NavLink exact to="/upload-meme">
+            <i className="fa fa-cloud-upload"></i> Upload
+          </NavLink>
         </div>
       </div>
     </div>

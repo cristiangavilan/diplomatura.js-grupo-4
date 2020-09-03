@@ -1,6 +1,6 @@
 import { ICategory } from '../../../commons/models/Category.model';
 import { IUser } from '../../../commons/models/User.model';
-import { IMeme } from '../../../commons/models/Meme.model';
+import { Meme } from '../../../commons/models/Meme.model';
 
 const futbol: ICategory = {
   _id: '9a09sd8a09sd898d0a98sd0a',
@@ -33,7 +33,7 @@ const userTest2: IUser = {
 
 const dateTest = new Date();
 
-export const memes: IMeme[] = [
+export const memes: Meme[] = [
   {
     _id: '76ad8a6sd8asd79a8s7d9as8d9a87sd',
     image: 'futbol',

@@ -1,7 +1,7 @@
 import React from 'react';
-import { IMeme } from '../../../commons/models/Meme.model';
+import { Meme } from '../../../commons/models/Meme.model';
 
-export const MemeCard = ({ title, filename }: IMeme) => {
+export const MemeCard = ({ title, filename }: Meme) => {
   return (
     <div className="card border-pink">
       <div className="card-header text-capitalize">

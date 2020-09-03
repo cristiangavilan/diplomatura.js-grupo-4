@@ -59,71 +59,76 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
   }, [urlImage]);
 
   return (
-    <div>
-      <div className="card border-pink">
-        <div className="card-header text-capitalize">
-          {enableCompleteData && (
-            <div className="card border-pink">
-              <div className="card-header text-capitalize">
-                <img
-                  className="rounded"
-                  src="https://image.flaticon.com/icons/png/512/64/64572.png"
-                  alt="user"
-                  width="30"
-                />{' '}
-                <strong>{title}</strong>
-                <br></br>
-                <strong>{category}</strong>
-              </div>
-              <div className="card-body">
-                <img src={urlImage} alt={getFileName(urlImage)} width="100%" />
-              </div>
-            </div>
-          )}
-          <p>
-            <UploadCloudFile onGetUrlImage={getUrlImage} />
-          </p>
-          {enableCompleteData && (
-            <form id="formMeme">
-              <p>
-                <label>
-                  {'Título: '}
-                  <input
-                    name="title"
-                    type="text"
-                    required
-                    placeholder="Escribe un título"
-                    minLength={4}
-                    maxLength={50}
-                    onChange={onChangeTitle}
-                  ></input>
-                </label>
-              </p>
-              <p>
-                {'Categoría: '}
-                <select id="categoryId" name="name" onChange={onChangeCategory} required>
-                  <option value="" selected disabled>
-                    Elegí una categoria
-                  </option>
-                  {categories.map((category: ICategory) => (
-                    <option value={category._id} key={category._id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-              </p>
-            </form>
-          )}
-          <p>
-            <button className="btn-pink" onClick={onCancel}>
-              Cancelar
-            </button>
+    <div className="row">
+      <div className="col text-center">
+        <div className="card border-pink">
+          <div className="card-header text-capitalize">
             {enableCompleteData && (
-              <button form="formMeme" className="btn-pink" type="submit" onSubmit={onSubmit}>
-                Guardar
-              </button>
+              <div className="card border-pink">
+                <div className="card-header text-capitalize">
+                  <img
+                    className="rounded"
+                    src="https://image.flaticon.com/icons/png/512/64/64572.png"
+                    alt="user"
+                    width="30"
+                  />{' '}
+                  <strong>{title}</strong>
+                  <br></br>
+                  <strong>{category}</strong>
+                </div>
+                <div className="card-body">
+                  <img src={urlImage} alt={getFileName(urlImage)} width="50%" />
+                </div>
+              </div>
             )}
-          </p>
+            <p>
+              <UploadCloudFile onGetUrlImage={getUrlImage} />
+            </p>
+            {enableCompleteData && (
+              <form id="formMeme">
+                <div className="form-group">
+                  <p>
+                    <label>
+                      {'Título: '}
+                      <input
+                        name="title"
+                        type="text"
+                        className="form-control"
+                        required
+                        placeholder="Escribe un título"
+                        minLength={4}
+                        maxLength={50}
+                        onChange={onChangeTitle}
+                      ></input>
+                    </label>
+                  </p>
+                  <p>
+                    {'Categoría: '}
+                    <select id="categoryId" name="name" className="custom-select" onChange={onChangeCategory} required>
+                      <option value="" selected disabled>
+                        Elegí una categoria
+                      </option>
+                      {categories.map((category: ICategory) => (
+                        <option value={category._id} key={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
+                  </p>
+                </div>
+              </form>
+            )}
+            <p>
+              <button className="btn-pink m-2" onClick={onCancel}>
+                Cancelar
+              </button>
+              {enableCompleteData && (
+                <button form="formMeme" className="btn-pink m-2" type="submit" onSubmit={onSubmit}>
+                  Guardar
+                </button>
+              )}
+            </p>
+          </div>
         </div>
       </div>
     </div>
