@@ -1,5 +1,5 @@
 import React from 'react';
-import { categories } from '../data/data';
+import { dbCategories } from '../data/data';
 
 export const SelectCategory = ({ onSelect }: { onSelect: (categoryId: any) => void }) => {
   return (
@@ -16,7 +16,7 @@ export const SelectCategory = ({ onSelect }: { onSelect: (categoryId: any) => vo
           <option key={-1} value={''}>
             Todos
           </option>
-          {categories.map((category, index) => (
+          {dbCategories.map((category, index) => (
             <option key={index} value={category._id}>
               {category.name}
             </option>

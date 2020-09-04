@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meme } from '../../../commons/models/Meme.model';
+import { Meme } from 'memegram-commons/models/Meme.model';
 
 export const MemeCard = ({ title, filename }: Meme) => {
   return (

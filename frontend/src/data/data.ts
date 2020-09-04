@@ -1,6 +1,6 @@
-import { ICategory } from '../../../commons/models/Category.model';
-import { IUser } from '../../../commons/models/User.model';
-import { Meme } from '../../../commons/models/Meme.model';
+import { ICategory } from 'memegram-commons/models/Category.model';
+import { IUser } from 'memegram-commons/models/User.model';
+import { Meme } from 'memegram-commons/models/Meme.model';
 
 const futbol: ICategory = {
   _id: '9a09sd8a09sd898d0a98sd0a',
@@ -31,9 +31,7 @@ const userTest2: IUser = {
   img: 'https://image.flaticon.com/icons/png/512/64/64572.png',
 };
 
-const dateTest = new Date();
-
-export const memes: Meme[] = [
+export const dbMemes: Meme[] = [
   {
     _id: '76ad8a6sd8asd79a8s7d9as8d9a87sd',
     image: 'futbol',
@@ -44,8 +42,8 @@ export const memes: Meme[] = [
     owner: userTest1,
     voteUp: [],
     voteDown: [],
-    createdAt: dateTest,
-    updatedAt: dateTest,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     comments: [],
   },
   {
@@ -58,8 +56,8 @@ export const memes: Meme[] = [
     owner: userTest1,
     voteUp: [],
     voteDown: [],
-    createdAt: dateTest,
-    updatedAt: dateTest,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     comments: [],
   },
   {
@@ -72,10 +70,10 @@ export const memes: Meme[] = [
     owner: userTest2,
     voteUp: [],
     voteDown: [],
-    createdAt: dateTest,
-    updatedAt: dateTest,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     comments: [],
   },
 ];
 
-export const categories = [futbol, moda, musica];
+export const dbCategories = [futbol, moda, musica];
