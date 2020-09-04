@@ -83,13 +83,13 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
                 </div>
               </div>
             )}
-            <p>
+            <div>
               <UploadCloudFile onGetUrlImage={getUrlImage} />
-            </p>
+            </div>
             {enableCompleteData && (
               <form id="formMeme">
                 <div className="form-group">
-                  <p>
+                  <div>
                     <div className="form-group">
                       <label>{'Título: '}</label>
                       <input
@@ -101,26 +101,26 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
                         minLength={1}
                         maxLength={255}
                         onChange={onChangeTitle}
-                      ></input>
+                      />
                     </div>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     {'Categoría: '}
                     <select id="categoryId" name="name" className="custom-select" onChange={onChangeCategory} required>
                       <option value="" selected disabled>
                         Elegí una categoria
                       </option>
-                      {categories.map((category: ICategory) => (
+                      {categories.map((category) => (
                         <option value={category._id} key={category._id}>
                           {category.name}
                         </option>
                       ))}
                     </select>
-                  </p>
+                  </div>
                 </div>
               </form>
             )}
-            <p>
+            <div>
               <div className="col">
                 <NavLink exact to="/Home">
                   <button className="btn-pink m-2" onClick={onCancel}>
@@ -134,7 +134,7 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
                   </button>
                 )}
               </div>
-            </p>
+            </div>
           </div>
         </div>
       </div>
