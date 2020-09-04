@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAppState } from '../state';
 import { MemeGrid } from '../components/MemeGrid';
-import { TabBar } from '../components/TabBar';
 import { SelectCategory } from '../components/SelectCategory';
 
 export const Home = () => {

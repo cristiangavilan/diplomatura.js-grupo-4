@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UploadCloudFile from '../components/UploadCloudFile';
+import { NavLink } from 'react-router-dom';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { Meme } from 'memegram-commons/models/Meme.model';
 
@@ -16,7 +17,7 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
   const [meme, setMeme] = useState<Meme>();
   const [urlImage, setUrlImage] = useState<string>();
   const [title, setTitle] = useState<string>();
-  const [category, setCategory] = useState<string>();
+  const [category, setCategory] = useState<ICategory>();
   const [enableCompleteData, setEnableCompleteData] = useState<boolean>(false); //hasta que no cargue la imagen no se deberia habilitar el boton guardar, label titulo, select categoria.
 
   const getUrlImage = (url: string) => {
@@ -45,8 +46,9 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
   };
 
   const onChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCategory: string = event ? event?.target.value : '';
-    setCategory(newCategory);
+    const idCategory: string = event ? event.target.value : '';
+    const category = categories.find((categ) => categ._id === idCategory);
+    setCategory(category);
   };
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
                   />{' '}
                   <strong>{title}</strong>
                   <br></br>
-                  <strong>{category}</strong>
+                  <strong>{category?.name}</strong>
                 </div>
                 <div className="card-body">
                   <img src={urlImage} alt={getFileName(urlImage)} width="50%" />
@@ -88,19 +90,19 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
               <form id="formMeme">
                 <div className="form-group">
                   <p>
-                    <label>
-                      {'Título: '}
+                    <div className="form-group">
+                      <label>{'Título: '}</label>
                       <input
                         name="title"
                         type="text"
                         className="form-control"
                         required
                         placeholder="Escribe un título"
-                        minLength={4}
-                        maxLength={50}
+                        minLength={1}
+                        maxLength={255}
                         onChange={onChangeTitle}
                       ></input>
-                    </label>
+                    </div>
                   </p>
                   <p>
                     {'Categoría: '}
@@ -119,14 +121,19 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
               </form>
             )}
             <p>
-              <button className="btn-pink m-2" onClick={onCancel}>
-                Cancelar
-              </button>
-              {enableCompleteData && (
-                <button form="formMeme" className="btn-pink m-2" type="submit" onSubmit={onSubmit}>
-                  Guardar
-                </button>
-              )}
+              <div className="col">
+                <NavLink exact to="/Home">
+                  <button className="btn-pink m-2" onClick={onCancel}>
+                    Cancelar
+                  </button>
+                </NavLink>
+
+                {enableCompleteData && (
+                  <button form="formMeme" className="btn-pink m-2" type="submit" onSubmit={onSubmit}>
+                    Guardar
+                  </button>
+                )}
+              </div>
             </p>
           </div>
         </div>
