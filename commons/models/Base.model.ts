@@ -1,3 +1,3 @@
 export interface IBase {
-  _id: any;
+  _id?: any;
 }

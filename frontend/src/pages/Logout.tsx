@@ -11,10 +11,11 @@ export const Logout = () => {
 
   state.produce((currentState) => {
     currentState.loggedIn = false;
-    delete currentState.user;
+    currentState.user = undefined;
   });
 
   history.push('/');
+  window.location.reload(true);
 
   return <></>;
 };

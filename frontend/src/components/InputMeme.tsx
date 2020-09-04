@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import UploadCloudFile from '../components/UploadCloudFile';
 import { NavLink } from 'react-router-dom';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { Meme } from 'memegram-commons/models/Meme.model';
+import { useAppState } from '../state';
 
 type TInputMeme = {
   categories: ICategory[];
@@ -14,6 +15,7 @@ const onCancel = () => {
 };
 
 const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
+  const state = useAppState();
   const [meme, setMeme] = useState<Meme>();
   const [urlImage, setUrlImage] = useState<string>();
   const [title, setTitle] = useState<string>();
@@ -32,12 +34,28 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
     return fileNameUrl;
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault(); //evita que refresque la pagina
-    console.log('InputMeme.txt', 'onSubmit');
-    console.log('InputMeme.txt', event);
-    //const fileNameUrl: { getFileName(urlImage) };
-    //const newMeme: Meme = { image: urlImage, filename: fileNameUrl };
+    if (!category || !state.user || !onGetMemeToSave) {
+      // Nunca debería pasar por acá...
+      throw new Error('No debería pasar nunca...');
+    }
+
+    const fileNameUrl = getFileName(urlImage);
+    const newMeme: Meme = {
+      image: urlImage ? urlImage : '',
+      filename: fileNameUrl ? fileNameUrl : '',
+      title: title ? title : '',
+      category,
+      owner: state.user,
+      voteUp: [],
+      voteDown: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      comments: [],
+    };
+
+    onGetMemeToSave(newMeme);
   };
 
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

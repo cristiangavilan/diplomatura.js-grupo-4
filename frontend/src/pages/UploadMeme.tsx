@@ -2,12 +2,13 @@ import React from 'react';
 import InputMeme from '../components/InputMeme';
 import { Meme } from 'memegram-commons/models/Meme.model';
 import { dbCategories } from '../data/data';
-
-const getMemeToSave = (meme: Meme) => {
-  console.log('UploadMeme.tsx', meme);
-};
+import { MemeSdk } from '../sdk/MemeSdk';
 
 export const UploadMeme = () => {
+  const getMemeToSave = (meme: Meme) => {
+    MemeSdk.addMeme(meme).then();
+  };
+
   return (
     <div className="container mb-4">
       <div className="row">

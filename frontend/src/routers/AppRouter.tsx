@@ -13,9 +13,12 @@ import { UploadMeme } from '../pages/UploadMeme';
 export const AppRouter = () => {
   return (
     <Router>
-      <div>
-        <Navbar />
-
+      <Navbar />
+      <div
+        style={{
+          marginBottom: '5rem',
+        }}
+      >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" component={SignIn} />
@@ -26,9 +29,8 @@ export const AppRouter = () => {
           <Route path="/upload-meme" component={UploadMeme} />
           <Redirect to="/" />
         </Switch>
-
-        <TabBar />
       </div>
+      <TabBar />
     </Router>
   );
 };
