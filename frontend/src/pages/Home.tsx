@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { useAppState } from '../state';
 import { MemeGrid } from '../components/MemeGrid';
 import { SelectCategory } from '../components/SelectCategory';
 
 export const Home = () => {
-  const state = useAppState();
-  const [category, setCategory] = useState('all');
+  const [categoryId, setCategoryId] = useState<any>(null);
   return (
     <div className="m-4">
       <div className="container p-2">
-        {/* {state.loggedIn && <h3>Welcome {state.user?.username}!</h3>} */}
-        <SelectCategory onSelect={(category) => setCategory(category)} />
-        <MemeGrid category={category} />
+        <SelectCategory onSelect={(categoryId) => setCategoryId(categoryId)} />
+        <MemeGrid categoryId={categoryId} />
       </div>
     </div>
   );

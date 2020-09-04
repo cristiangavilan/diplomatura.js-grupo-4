@@ -4,17 +4,17 @@ import { Meme } from '../../../commons/models/Meme.model';
 
 const futbol: ICategory = {
   _id: '9a09sd8a09sd898d0a98sd0a',
-  name: 'deportes',
+  name: 'Deportes',
 };
 
 const moda: ICategory = {
   _id: 'a90das98da980sd980as98d0',
-  name: 'moda',
+  name: 'Moda',
 };
 
 const musica: ICategory = {
   _id: '876as76a76sd76asd76a67sd',
-  name: 'musica',
+  name: 'Musica',
 };
 
 const userTest1: IUser = {
@@ -78,4 +78,4 @@ export const memes: Meme[] = [
   },
 ];
 
-export const categoriasTest = ['all', 'musica', 'moda', 'deportes', 'informatica'];
+export const categories = [futbol, moda, musica];

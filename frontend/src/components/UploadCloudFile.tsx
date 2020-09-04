@@ -1,11 +1,11 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 type TUploadCloudFileProps = {
   onGetUrlImage?: (urlImg: string) => void;
 };
 
-const cloudName = `${process.env.CLOUDINARY_CLOUD_NAME}`; //--> buscar porque el problema es con windows.
-const uploadPreset = `${process.env.CLOUDINARY_UPLOAD_PRESET}`;
+const cloudName = `${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}`; //--> buscar porque el problema es con windows.
+const uploadPreset = `${process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET}`;
 
 /**
  * Componente funcional: button upload de cloudinary
@@ -14,8 +14,8 @@ const uploadPreset = `${process.env.CLOUDINARY_UPLOAD_PRESET}`;
 const UploadCloudFile = ({ onGetUrlImage }: TUploadCloudFileProps) => {
   //chequear process.env, por lo pronto hardcode cloudName y  uploadPreset
 
-  //console.log('cloudName', `${cloudName}`);
-  //console.log('process', `${uploadPreset}`);
+  console.log('cloudName', `${cloudName}`);
+  console.log('process', `${uploadPreset}`);
 
   const [urlImage, setUrlImage] = useState<string>();
 
@@ -26,7 +26,6 @@ const UploadCloudFile = ({ onGetUrlImage }: TUploadCloudFileProps) => {
   }, []);
 
   const uploadWidget = () => {
-    console.log('uploadWidget');
     const widget = window.cloudinary.createUploadWidget(
       { cloudName, uploadPreset, cropping: true },
       (error: any, result: any) => {
@@ -48,7 +47,8 @@ const UploadCloudFile = ({ onGetUrlImage }: TUploadCloudFileProps) => {
     <div className="row mt-2">
       <div className="col text-center">
         <button className="btn btn-lg btn-outline-pink" onClick={uploadWidget}>
-          <i className="fa fa-cloud-upload"></i> Imagen Meme
+          <i className="fa fa-cloud-upload"></i>
+          Imagen Meme
         </button>
       </div>
     </div>
