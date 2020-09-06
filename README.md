@@ -12,30 +12,17 @@ cp .env.example .env
 Instala las dependencias:
 
 ```bash
-cd backend
-npm install
-```
-
-```bash
-cd frontend
 npm install
 ```
 
 ## Start Dev
 
 ```bash
-cd backend
-npm start
-```
-
-```bash
-cd frontend
 npm start
 ```
 
 ## Build
 
 ```bash
-cd frontend
 npm run build
 ```
