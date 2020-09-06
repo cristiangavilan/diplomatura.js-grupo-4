@@ -11,3 +11,8 @@ export interface IUserDB extends IUser {
   password: string;
   google: string;
 }
+
+export interface IUserLogin {
+  user: IUser;
+  token: string;
+}

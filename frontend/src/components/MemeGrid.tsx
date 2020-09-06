@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { MemeCard } from './MemeCard';
-import { dbCategories } from '../data/data';
-import { Meme } from 'memegram-commons/models/Meme.model';
+import { IMeme } from 'memegram-commons/models/Meme.model';
 import { MemeSdk } from '../sdk/MemeSdk';
+import { ICategory } from 'memegram-commons/models/Category.model';
 
-export const MemeGrid = ({ categoryId }: { categoryId: any }) => {
-  const [memes, setMemes] = useState<Meme[]>([]);
+export const MemeGrid = ({ category }: { category?: ICategory }) => {
+  const [memes, setMemes] = useState<IMeme[]>([]);
 
   useEffect(() => {
-    MemeSdk.getMemes(categoryId).then((m) => setMemes(m));
-  }, [categoryId]);
+    MemeSdk.getMemes(category?._id).then((m) => setMemes(m));
+  }, [category]);
 
   if (memes.length > 0) {
     return (
@@ -23,7 +23,7 @@ export const MemeGrid = ({ categoryId }: { categoryId: any }) => {
     return (
       <span>
         No hay memes de la categoría:
-        {dbCategories.find((c) => c._id === categoryId)?.name}
+        {category?.name}
       </span>
     );
   }

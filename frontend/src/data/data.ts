@@ -1,6 +1,6 @@
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
-import { Meme } from 'memegram-commons/models/Meme.model';
+import { IMeme } from 'memegram-commons/models/Meme.model';
 
 const futbol: ICategory = {
   _id: '9a09sd8a09sd898d0a98sd0a',
@@ -31,7 +31,9 @@ const userTest2: IUser = {
   img: 'https://image.flaticon.com/icons/png/512/64/64572.png',
 };
 
-export const dbMemes: Meme[] = [
+export const dbUsers: IUser[] = [userTest1, userTest2];
+
+export const dbMemes: IMeme[] = [
   {
     _id: '76ad8a6sd8asd79a8s7d9as8d9a87sd',
     image: 'futbol',

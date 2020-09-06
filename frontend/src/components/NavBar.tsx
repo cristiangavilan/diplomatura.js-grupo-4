@@ -35,24 +35,37 @@ export const Navbar = () => {
       <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li onClick={handleNavCollapse}>
-            <NavLink activeClassName="active" className="nav-item nav-link" exact to="/">
-              Home
+            <NavLink className="nav-item nav-link" exact to="/">
+              <i className="fas fa-home"></i> Home
             </NavLink>
           </li>
+
           {state.loggedIn || (
             <li onClick={handleNavCollapse}>
-              <NavLink activeClassName="active" className="nav-item nav-link" exact to="/login">
-                Login
+              <NavLink className="nav-item nav-link" exact to="/login">
+                <i className="fa fa-sign-in"></i> Login
               </NavLink>
             </li>
           )}
 
           {state.loggedIn && (
-            <li onClick={handleNavCollapse}>
-              <NavLink activeClassName="active" className="nav-item nav-link" exact to="/logout">
-                Logout
-              </NavLink>
-            </li>
+            <>
+              <li onClick={handleNavCollapse}>
+                <NavLink className="nav-item nav-link" exact to="/upload-meme">
+                  <i className="fa fa-cloud-upload"></i> Upload
+                </NavLink>
+              </li>
+              <li onClick={handleNavCollapse}>
+                <NavLink className="nav-item nav-link" exact to="/profile">
+                  <i className="fas fa-user"></i> Profile
+                </NavLink>
+              </li>
+              <li onClick={handleNavCollapse}>
+                <NavLink className="nav-item nav-link" exact to="/logout">
+                  <i className="fa fa-sign-out"></i> Logout
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </div>

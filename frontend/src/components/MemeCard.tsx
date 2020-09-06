@@ -1,7 +1,7 @@
 import React from 'react';
-import { Meme } from 'memegram-commons/models/Meme.model';
+import { IMeme } from 'memegram-commons/models/Meme.model';
 
-export const MemeCard = ({ title, filename }: Meme) => {
+export const MemeCard = ({ title, filename }: IMeme) => {
   return (
     <div className="card border-pink">
       <div className="card-header text-capitalize">

@@ -1,82 +1,61 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import UploadCloudFile from '../components/UploadCloudFile';
-import { NavLink } from 'react-router-dom';
-import { ICategory } from 'memegram-commons/models/Category.model';
-import { Meme } from 'memegram-commons/models/Meme.model';
+import { useHistory } from 'react-router-dom';
+import { IMeme } from 'memegram-commons/models/Meme.model';
 import { useAppState } from '../state';
+import { TId } from 'memegram-commons/models/Base.model';
+import { SelectCategory } from './SelectCategory';
 
 type TInputMeme = {
-  categories: ICategory[];
-  onGetMemeToSave: (meme: Meme) => void;
+  onSave: (meme: IMeme) => void | Promise<void>;
 };
 
-const onCancel = () => {
-  console.log('InputMeme.tsx', 'onCancel');
-};
-
-const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
+const InputMeme = ({ onSave }: TInputMeme) => {
   const state = useAppState();
-  const [meme, setMeme] = useState<Meme>();
-  const [urlImage, setUrlImage] = useState<string>();
-  const [title, setTitle] = useState<string>();
-  const [category, setCategory] = useState<ICategory>();
+  const history = useHistory();
+  const [urlImage, setUrlImage] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [categoryId, setCategoryId] = useState<TId>('');
+  const [categoryName, setCategoryName] = useState<string>('');
   const [enableCompleteData, setEnableCompleteData] = useState<boolean>(false); //hasta que no cargue la imagen no se deberia habilitar el boton guardar, label titulo, select categoria.
 
   const getUrlImage = (url: string) => {
-    console.log('InputMeme.txt', 'getUrlImage');
     if (url) {
       setUrlImage(url);
     }
   };
 
-  const getFileName = (urlImage: string | undefined): string | undefined => {
-    const fileNameUrl: string | undefined = urlImage?.substring(urlImage.lastIndexOf('/'));
-    return fileNameUrl;
+  const getFileName = (urlImage: string | undefined): string => {
+    return urlImage?.substring(urlImage.lastIndexOf('/')) || '';
   };
 
-  const onSubmit = async (event: FormEvent) => {
-    event.preventDefault(); //evita que refresque la pagina
-    if (!category || !state.user || !onGetMemeToSave) {
-      // Nunca debería pasar por acá...
-      throw new Error('No debería pasar nunca...');
-    }
+  const onCancel = () => {
+    history.push('/');
+  };
 
-    const fileNameUrl = getFileName(urlImage);
-    const newMeme: Meme = {
-      image: urlImage ? urlImage : '',
-      filename: fileNameUrl ? fileNameUrl : '',
-      title: title ? title : '',
-      category,
-      owner: state.user,
-      voteUp: [],
-      voteDown: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      comments: [],
+  const onSubmit = () => {
+    const newMeme: IMeme = {
+      image: getFileName(urlImage),
+      filename: urlImage,
+      title,
+      category: categoryId,
+      owner: state.user?._id,
     };
 
-    onGetMemeToSave(newMeme);
+    onSave(newMeme);
   };
 
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const newTitle: string = event ? event?.target.value : '';
-    setTitle(newTitle);
-  };
-
-  const onChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const idCategory: string = event ? event.target.value : '';
-    const category = categories.find((categ) => categ._id === idCategory);
-    setCategory(category);
+    setTitle(event ? event?.target.value : '');
   };
 
   useEffect(() => {
     return () => {
-      console.log('InputMeme.txt', 'useEffect');
       if (!enableCompleteData) {
         setEnableCompleteData(true);
       }
     };
-  }, [urlImage]);
+  }, [urlImage, enableCompleteData]);
 
   return (
     <div className="row">
@@ -94,7 +73,7 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
                   />{' '}
                   <strong>{title}</strong>
                   <br></br>
-                  <strong>{category?.name}</strong>
+                  <strong>{categoryName}</strong>
                 </div>
                 <div className="card-body">
                   <img src={urlImage} alt={getFileName(urlImage)} width="50%" />
@@ -105,49 +84,42 @@ const InputMeme = ({ categories, onGetMemeToSave }: TInputMeme) => {
               <UploadCloudFile onGetUrlImage={getUrlImage} />
             </div>
             {enableCompleteData && (
-              <form id="formMeme">
-                <div className="form-group">
-                  <div>
-                    <div className="form-group">
-                      <label>{'Título: '}</label>
-                      <input
-                        name="title"
-                        type="text"
-                        className="form-control"
-                        required
-                        placeholder="Escribe un título"
-                        minLength={1}
-                        maxLength={255}
-                        onChange={onChangeTitle}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    {'Categoría: '}
-                    <select id="categoryId" name="name" className="custom-select" onChange={onChangeCategory} required>
-                      <option value="" selected disabled>
-                        Elegí una categoria
-                      </option>
-                      {categories.map((category) => (
-                        <option value={category._id} key={category._id}>
-                          {category.name}
-                        </option>
-                      ))}
-                    </select>
+              <div className="form-group">
+                <div>
+                  <div className="form-group">
+                    <label>{'Título: '}</label>
+                    <input
+                      name="title"
+                      type="text"
+                      className="form-control"
+                      required
+                      placeholder="Escribe un título"
+                      minLength={1}
+                      maxLength={255}
+                      value={title}
+                      onChange={onChangeTitle}
+                    />
                   </div>
                 </div>
-              </form>
+                <div>
+                  {'Categoría: '}
+                  <SelectCategory
+                    onSelect={(category) => {
+                      setCategoryId(category._id);
+                      setCategoryName(category.name);
+                    }}
+                  />
+                </div>
+              </div>
             )}
             <div>
               <div className="col">
-                <NavLink exact to="/Home">
-                  <button className="btn-pink m-2" onClick={onCancel}>
-                    Cancelar
-                  </button>
-                </NavLink>
+                <button className="btn-pink m-2" onClick={onCancel}>
+                  Cancelar
+                </button>
 
                 {enableCompleteData && (
-                  <button form="formMeme" className="btn-pink m-2" type="submit" onSubmit={onSubmit}>
+                  <button className="btn-pink m-2" type="button" onClick={onSubmit}>
                     Guardar
                   </button>
                 )}

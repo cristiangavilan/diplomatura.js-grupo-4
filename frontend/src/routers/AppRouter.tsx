@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Navbar } from '../components/NavBar';
-import { TabBar } from '../components/TabBar';
 import { Login } from '../pages/Login';
 import { Logout } from '../pages/Logout';
 import { Home } from '../pages/Home';
@@ -30,7 +29,6 @@ export const AppRouter = () => {
           <Redirect to="/" />
         </Switch>
       </div>
-      <TabBar />
     </Router>
   );
 };
