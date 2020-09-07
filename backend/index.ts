@@ -11,7 +11,8 @@ import reactRoutes from './routes/react.routes';
 import errorsRoutes from './routes/errors.routes';
 import usuarioRoute from './routes/usuario.routes';
 import loginRoute from './routes/login.routes';
-import { IUserModel, User } from './models/User.model';
+import { User } from './models/User.model';
+import { IUserModel } from 'memegram-commons/models/User.model';
 
 const { API_ENDPOINT, SERVER_PORT } = process.env;
 

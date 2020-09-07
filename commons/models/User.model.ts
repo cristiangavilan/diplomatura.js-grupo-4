@@ -1,5 +1,7 @@
 import { IBase } from './Base.model';
-export interface IUser extends IBase {
+import { Document } from 'mongoose';
+
+interface _IUser {
   username: string;
   email: string;
   img?: string;
@@ -7,9 +9,12 @@ export interface IUser extends IBase {
   lastLogin?: Number;
 }
 
-export interface IUserDB extends IUser {
+export interface IUser extends _IUser, IBase {}
+
+export interface IUserModel extends _IUser, Document {
   password: string;
   google: string;
+  comparePassword: (password: string) => Promise<Boolean>;
 }
 
 export interface IUserLogin {

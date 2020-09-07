@@ -1,18 +1,20 @@
 import { IMeme } from 'memegram-commons/models/Meme.model';
 import { dbMemes } from '../data/data';
 import { TId } from 'memegram-commons/models/Base.model';
+import { ObjectId } from 'bson';
 
 export const MemeSdk = {
   async getMemes(categoryId?: TId): Promise<IMeme[]> {
     if (categoryId) {
-      return dbMemes.filter((m) => m.category._id === categoryId);
+      const sId = `${categoryId}`;
+      return dbMemes.filter((m) => `${m.category}` === sId);
     } else {
       return dbMemes;
     }
   },
 
   async addMeme(meme: IMeme): Promise<void> {
-    meme._id = Date.now();
+    meme._id = new ObjectId();
 
     dbMemes.push(meme);
   },

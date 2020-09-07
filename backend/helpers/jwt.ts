@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IUserModel } from '../models/User.model';
+import { IUserModel } from 'memegram-commons/models/User.model';
 const JWTKEY = process.env.JWTKEY;
 
 export class Auth {

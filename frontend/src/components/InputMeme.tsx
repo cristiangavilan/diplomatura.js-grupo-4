@@ -15,7 +15,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   const history = useHistory();
   const [urlImage, setUrlImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<TId>('');
+  const [categoryId, setCategoryId] = useState<TId | undefined>();
   const [categoryName, setCategoryName] = useState<string>('');
   const [enableCompleteData, setEnableCompleteData] = useState<boolean>(false); //hasta que no cargue la imagen no se deberia habilitar el boton guardar, label titulo, select categoria.
 
@@ -38,8 +38,10 @@ const InputMeme = ({ onSave }: TInputMeme) => {
       image: getFileName(urlImage),
       filename: urlImage,
       title,
+      // @ts-ignore
       category: categoryId,
-      owner: state.user?._id,
+      // @ts-ignore
+      owner: state.user._id,
     };
 
     onSave(newMeme);
@@ -105,7 +107,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                   {'Categoría: '}
                   <SelectCategory
                     onSelect={(category) => {
-                      setCategoryId(category._id);
+                      setCategoryId(category?._id);
                       setCategoryName(category.name);
                     }}
                   />

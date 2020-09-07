@@ -1,11 +1,7 @@
-import { model, Schema, Document } from 'mongoose';
+import { model, Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import uniqueValidator from 'mongoose-unique-validator';
-import { IUserDB } from 'memegram-commons/models/User.model';
-
-export interface IUserModel extends IUserDB, Document {
-  comparePassword: (password: string) => Promise<Boolean>;
-}
+import { IUserModel } from 'memegram-commons/models/User.model';
 
 export const UserSchema = new Schema({
   username: { type: String, unique: true, required: true, lowercase: true },

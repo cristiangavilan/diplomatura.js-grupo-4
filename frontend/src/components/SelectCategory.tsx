@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { TId } from 'memegram-commons/models/Base.model';
 import { ICategory } from 'memegram-commons/models/Category.model';
+import { ObjectId } from 'bson';
 import { CategorySdk } from '../sdk/CategorySdk';
 
 export const SelectCategory = ({ onSelect }: { onSelect: (category: ICategory) => void }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [categoryId, setCategoryId] = useState<TId>('');
+  const [categoryId, setCategoryId] = useState<TId | undefined>();
 
   const fetchCategories = useCallback(async () => {
     const data = await CategorySdk.getCategories();
@@ -36,15 +37,15 @@ export const SelectCategory = ({ onSelect }: { onSelect: (category: ICategory) =
           className="custom-select"
           aria-label="Selector de Categoria"
           onChange={(e) => {
-            setCategoryId(e.target.value);
+            setCategoryId(new ObjectId(e.target.value));
           }}
-          value={categoryId}
+          value={`${categoryId}`}
         >
           <option key={-1} value={''}>
             Todos
           </option>
           {categories.map((category, index) => (
-            <option key={index} value={category._id}>
+            <option key={index} value={`${category._id}`}>
               {category.name}
             </option>
           ))}
