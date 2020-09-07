@@ -1,17 +1,49 @@
-import React from 'react';
+import { IMeme } from 'memegram-commons/models/Meme.model';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 // import { MemeCard } from '../components/MemeCard';
 import { CommentGrid } from '../components/CommentGrid';
+import { MemeSdk } from '../sdk/MemeSdk';
 
 export const MemeDetail = () => {
-  return (
-    <div className="container">
-      <h3>MemeDetail</h3>
-      <div className="row">
-        <div className="col">
-          {/* <MemeCard /> */}
-          <CommentGrid />
+  const { _id } = useParams();
+  const [meme, setMeme] = useState<IMeme | undefined>(undefined);
+
+  useEffect(() => {
+    MemeSdk.getMemeById(_id).then((m) => setMeme(m));
+  }, [_id]);
+
+  if (meme) {
+    console.log(meme);
+    return (
+      <div className="container">
+        <div className="card border-pink">
+          <div className="card-header text-capitalize">
+            <img className="rounded" src={meme.owner.img} alt="user" width="30" /> <strong>{meme.title}</strong>
+          </div>
+          <div className="card-body">
+            <div className="row">
+              <div className="col">
+                <img src={meme.filename} alt="Futbol" width="100%" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col text-pink m-2 p-2">Vote Component</div>
+              <div className="col text-pink text-right m-2 p-2">fecha en Moment</div>
+            </div>
+          </div>
+
+          <div className="card-footer">
+            <div className="row">
+              <div className="col">
+                <CommentGrid />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <p>No hay meme</p>;
+  }
 };

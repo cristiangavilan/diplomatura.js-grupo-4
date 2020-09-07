@@ -16,4 +16,8 @@ export const MemeSdk = {
 
     dbMemes.push(meme);
   },
+
+  async getMemeById(_id: TId): Promise<IMeme | undefined> {
+    return dbMemes.find((m) => m._id === _id);
+  },
 };

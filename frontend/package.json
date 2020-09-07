@@ -8,6 +8,7 @@
     "bootstrap": "^4.5.2",
     "local-storage": "^2.0.0",
     "memegram-commons": "file:../commons",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
