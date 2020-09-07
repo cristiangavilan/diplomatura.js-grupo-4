@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { MemeCard } from './MemeCard';
-import { IMeme } from 'memegram-commons/models/Meme.model';
+import { IMemeListItem } from 'memegram-commons/models/Meme.model';
 import { MemeSdk } from '../sdk/MemeSdk';
 import { ICategory } from 'memegram-commons/models/Category.model';
 
 export const MemeGrid = ({ category }: { category?: ICategory }) => {
-  const [memes, setMemes] = useState<IMeme[]>([]);
+  const [memes, setMemes] = useState<IMemeListItem[]>([]);
 
   useEffect(() => {
     MemeSdk.getMemes(category?._id).then((m) => setMemes(m));

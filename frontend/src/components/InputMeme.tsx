@@ -108,7 +108,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                   <SelectCategory
                     onSelect={(category) => {
                       setCategoryId(category?._id);
-                      setCategoryName(category.name);
+                      setCategoryName(category?.name || 'Todos');
                     }}
                   />
                 </div>

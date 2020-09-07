@@ -15,6 +15,7 @@ export const AddComment = () => {
     const newComment: IComment = {
       comment: comment,
       createdAt: new Date(),
+      // @ts-ignore
       user: state.user?._id,
     };
 

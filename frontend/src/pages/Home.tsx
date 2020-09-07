@@ -9,7 +9,7 @@ export const Home = () => {
   return (
     <div className="m-4">
       <div className="container p-2">
-        <SelectCategory onSelect={(category) => setCategory(category)} />
+        <SelectCategory onSelect={(category) => setCategory(category)} withAllCategory={true} />
         <MemeGrid category={category} />
       </div>
     </div>

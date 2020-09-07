@@ -4,7 +4,13 @@ import { ICategory } from 'memegram-commons/models/Category.model';
 import { ObjectId } from 'bson';
 import { CategorySdk } from '../sdk/CategorySdk';
 
-export const SelectCategory = ({ onSelect }: { onSelect: (category: ICategory) => void }) => {
+export const SelectCategory = ({
+  onSelect,
+  withAllCategory,
+}: {
+  onSelect: (category: ICategory | undefined) => void;
+  withAllCategory?: Boolean;
+}) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [categoryId, setCategoryId] = useState<TId | undefined>();
 
@@ -18,11 +24,15 @@ export const SelectCategory = ({ onSelect }: { onSelect: (category: ICategory) =
   }, [fetchCategories]);
 
   useEffect(() => {
-    if (categoryId && categories.length) {
-      const selectedCategory = categories.find((c) => c._id === categoryId);
-
-      if (selectedCategory) {
+    console.debug('selectCategory called');
+    if (categories.length) {
+      if (categoryId) {
+        const selectedCategory = categories.find((c) => c._id?.equals(categoryId));
+        console.debug('selectCategory', categoryId, selectedCategory);
         onSelect(selectedCategory);
+      } else {
+        console.debug('selectCategory none');
+        onSelect(undefined);
       }
     }
   }, [categoryId, onSelect, categories]);
@@ -37,13 +47,15 @@ export const SelectCategory = ({ onSelect }: { onSelect: (category: ICategory) =
           className="custom-select"
           aria-label="Selector de Categoria"
           onChange={(e) => {
-            setCategoryId(new ObjectId(e.target.value));
+            setCategoryId(e.target.value ? new ObjectId(e.target.value) : undefined);
           }}
           value={`${categoryId}`}
         >
-          <option key={-1} value={''}>
-            Todos
-          </option>
+          {withAllCategory && (
+            <option key={-1} value={''}>
+              Todos
+            </option>
+          )}
           {categories.map((category, index) => (
             <option key={index} value={`${category._id}`}>
               {category.name}
