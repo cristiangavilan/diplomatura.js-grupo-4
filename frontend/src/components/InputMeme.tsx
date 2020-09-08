@@ -13,6 +13,8 @@ type TInputMeme = {
 const InputMeme = ({ onSave }: TInputMeme) => {
   const state = useAppState();
   const history = useHistory();
+  const [showTitleAlert, setShowTitleAlert] = useState<boolean>(false);
+  const [showCategoryAlert, setShowCategoryAlert] = useState<boolean>(false);
   const [urlImage, setUrlImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [categoryId, setCategoryId] = useState<TId | undefined>();
@@ -30,24 +32,51 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   };
 
   const onCancel = () => {
-    history.push('/');
+    if (urlImage) {
+      //Desea cancelar?
+    } else {
+      history.push('/');
+    }
+  };
+
+  const isDataValidated = (): boolean => {
+    setShowTitleAlert(false);
+    setShowCategoryAlert(false);
+
+    if (title && categoryId) {
+      return true;
+    } else {
+      if (!title) {
+        setShowTitleAlert(true);
+      }
+
+      if (!categoryId) {
+        setShowCategoryAlert(true);
+      }
+    }
+
+    return false;
   };
 
   const onSubmit = () => {
-    const newMeme: IMeme = {
-      image: getFileName(urlImage),
-      filename: urlImage,
-      title,
-      // @ts-ignore
-      category: categoryId,
-      // @ts-ignore
-      owner: state.user._id,
-    };
-
-    onSave(newMeme);
+    if (isDataValidated()) {
+      const newMeme: IMeme = {
+        image: getFileName(urlImage),
+        filename: urlImage,
+        title,
+        // @ts-ignore
+        category: categoryId,
+        // @ts-ignore
+        owner: state.user?._id,
+      };
+      onSave(newMeme);
+    }
   };
 
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    if (event?.target.value === '') {
+      setShowTitleAlert(true);
+    }
     setTitle(event ? event?.target.value : '');
   };
 
@@ -94,13 +123,17 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                       name="title"
                       type="text"
                       className="form-control"
-                      required
                       placeholder="Escribe un título"
                       minLength={1}
                       maxLength={255}
                       value={title}
                       onChange={onChangeTitle}
                     />
+                    {showTitleAlert && (
+                      <div className="alert alert-danger" role="alert">
+                        Debe ingresar el título
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -109,8 +142,17 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                     onSelect={(category) => {
                       setCategoryId(category?._id);
                       setCategoryName(category?.name || 'Todos');
+
+                      if (category?._id) {
+                        setShowCategoryAlert(false);
+                      }
                     }}
                   />
+                  {showCategoryAlert && (
+                    <div className="alert alert-danger" role="alert">
+                      Debe seleccionar una categoría
+                    </div>
+                  )}
                 </div>
               </div>
             )}
