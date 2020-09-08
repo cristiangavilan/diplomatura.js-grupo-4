@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import memegramDB from './db/config';
+
 //middlewares
 
 import passport from 'passport';
@@ -16,6 +17,13 @@ import { IUserModel } from 'memegram-commons/models/User.model';
 import memeRoute from './routes/meme.routes';
 import commentsRoute from './routes/comment.routes';
 import categoryRoute from './routes/category.routes';
+const cors = require('cors');
+const jsonParser = bodyParser.json();
+
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 const { API_ENDPOINT, SERVER_PORT } = process.env;
 
@@ -39,8 +47,9 @@ interface UserSession {
   //Inicio la Base de datos & Servidor express
   await memegramDB.memegramDB();
   const app = express();
-
+  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cors(corsOptions));
   app.use(passport.initialize());
   app.use(passport.session());
   passport.use(passportM);
