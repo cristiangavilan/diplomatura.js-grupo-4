@@ -31,9 +31,6 @@ export const Login = () => {
   const onLogin = useCallback(async () => {
     const data = await UserSdk.login(mailUser, passUser);
 
-  const onLogin = useCallback(async () => {
-    const data = await UserSdk.login('foo', 'bar');
-
     state.produce((currentState) => {
       currentState.loggedIn = true;
       currentState.user = data.user;
