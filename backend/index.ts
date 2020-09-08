@@ -13,6 +13,9 @@ import usuarioRoute from './routes/usuario.routes';
 import loginRoute from './routes/login.routes';
 import { User } from './models/User.model';
 import { IUserModel } from 'memegram-commons/models/User.model';
+import memeRoute from './routes/meme.routes';
+import commentsRoute from './routes/comment.routes';
+import categoryRoute from './routes/category.routes';
 
 const { API_ENDPOINT, SERVER_PORT } = process.env;
 
@@ -56,6 +59,9 @@ interface UserSession {
   // rutas cargadas
   app.use(baseApi, usuarioRoute);
   app.use(baseApi, loginRoute);
+  app.use(baseApi, memeRoute);
+  app.use(baseApi, commentsRoute);
+  app.use(baseApi, categoryRoute);
   app.use(reactRoutes);
   app.use(errorsRoutes);
 
