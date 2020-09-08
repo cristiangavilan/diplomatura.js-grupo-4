@@ -23,7 +23,7 @@ UserSchema.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 UserSchema.pre<IUserModel>('save', async function (next) {
   let user = this;
   if (!user.isModified('password')) return next();
-  //we generate the salt using 12 rounds and then use that salt with the received password string to generate our hash
+  //we generate the salt using 10 rounds and then use that salt with the received password string to generate our hash
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(user.password, salt);
   user.password = hash;
