@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User.model';
 import { Auth } from '../helpers/jwt';
+import { IUserLogin } from 'memegram-commons/models/User.model';
 
 export const loginUsuario = async (req: Request, res: Response): Promise<Response> => {
   if (!req.body.email || !req.body.password) {
@@ -16,10 +17,11 @@ export const loginUsuario = async (req: Request, res: Response): Promise<Respons
   if (isMatch) {
     user.lastLogin = Date.now();
     await user.save();
-    return res.status(400).json({
-      ok: true,
+
+    return res.json({
+      user,
       token: Auth.generarToken(user),
-    });
+    } as IUserLogin);
   }
   return res.status(400).json({
     msg: 'El password ingresado es incorrecto',

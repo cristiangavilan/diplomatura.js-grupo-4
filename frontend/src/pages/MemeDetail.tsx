@@ -1,4 +1,4 @@
-import { TMemeDetails } from 'memegram-commons/models/Meme.model';
+import { IMemeDetails } from 'memegram-commons/models/Meme.model';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CommentGrid } from '../components/CommentGrid';
@@ -6,7 +6,7 @@ import { MemeSdk } from '../sdk/MemeSdk';
 
 export const MemeDetail = () => {
   const { _id } = useParams();
-  const [meme, setMeme] = useState<TMemeDetails | undefined>(undefined);
+  const [meme, setMeme] = useState<IMemeDetails | undefined>(undefined);
 
   useEffect(() => {
     MemeSdk.getMemeById(_id).then((m) => setMeme(m));

@@ -1,4 +1,4 @@
-import { IMeme, TMemeDetails, IMemeListItem } from 'memegram-commons/models/Meme.model';
+import { IMeme, IMemeDetails, IMemeListItem } from 'memegram-commons/models/Meme.model';
 import { dbMemes, dbCategories, dbUsers } from '../data/data';
 import { TId } from 'memegram-commons/models/Base.model';
 import { ObjectId } from 'bson';
@@ -35,7 +35,7 @@ export const MemeSdk = {
     dbMemes.push(meme);
   },
 
-  async getMemeById(_id: TId): Promise<TMemeDetails | undefined> {
+  async getMemeById(_id: TId): Promise<IMemeDetails | undefined> {
     const meme: any = Object.assign(
       {},
       dbMemes.find((m) => m._id?.equals(_id))
@@ -44,6 +44,6 @@ export const MemeSdk = {
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
     meme.owner = dbUsers.find((u) => u._id?.equals(meme.owner));
 
-    return meme as TMemeDetails;
+    return meme as IMemeDetails;
   },
 };
