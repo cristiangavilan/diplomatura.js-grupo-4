@@ -24,6 +24,7 @@ export const MemeSdk = {
       m.comments = m.comments?.length || 0;
       m.voteUp = m.voteUp?.length || 0;
       m.voteDown = m.voteDown?.length || 0;
+      m.voted = 'up';
     });
 
     return c;
@@ -43,6 +44,9 @@ export const MemeSdk = {
 
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
     meme.owner = dbUsers.find((u) => u._id?.equals(meme.owner));
+    meme.voteUp = meme.voteUp?.length || 0;
+    meme.voteDown = meme.voteDown?.length || 0;
+    meme.voted = 'up';
 
     return meme as IMemeDetails;
   },
