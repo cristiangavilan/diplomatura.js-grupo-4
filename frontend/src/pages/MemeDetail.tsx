@@ -16,7 +16,7 @@ export const MemeDetail = () => {
     console.log(meme);
     return (
       <div className="container">
-        <div className="card border-pink">
+        <div className="card border-pink m-2">
           <div className="card-header text-capitalize">
             <img className="rounded" src={meme.owner.img} alt="user" width="30" /> <strong>{meme.title}</strong>
           </div>

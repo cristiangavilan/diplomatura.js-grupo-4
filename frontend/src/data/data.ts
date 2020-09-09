@@ -18,21 +18,38 @@ const musica: ICategory = {
   name: 'Musica',
 };
 
+const comida: ICategory = {
+  _id: new ObjectId(),
+  name: 'Comida',
+};
+
+const cine: ICategory = {
+  _id: new ObjectId(),
+  name: 'Cine',
+};
+
 const userTest1: IUser = {
   _id: new ObjectId(),
-  username: 'User1',
+  username: 'Pepe Argento',
   email: 'user2@user.com',
-  img: 'https://image.flaticon.com/icons/png/512/64/64572.png',
+  img:
+    'https://vignette.wikia.nocookie.net/casados-con-hijos-ar/images/7/73/1133292656_f-1.jpg/revision/latest/zoom-crop/width/240/height/240?cb=20160124204026&path-prefix=es',
 };
 
 const userTest2: IUser = {
   _id: new ObjectId(),
-  username: 'User2',
+  username: 'Pao Argento',
   email: 'user2@user.com',
-  img: 'https://image.flaticon.com/icons/png/512/64/64572.png',
+  img: 'https://elsol-compress.s3-accelerate.amazonaws.com/imagenes/000/310/598/000310598-201303lopilato_2625158.jpg',
+};
+const userTest3: IUser = {
+  _id: new ObjectId(),
+  username: 'Moni Argento',
+  email: 'user3@user.com',
+  img: 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Crystal_Clear_kdm_user_female.svg',
 };
 
-export const dbUsers: IUser[] = [userTest1, userTest2];
+export const dbUsers: IUser[] = [userTest1, userTest2, userTest3];
 
 export const dbMemes: IMeme[] = [
   {
@@ -83,6 +100,51 @@ export const dbMemes: IMeme[] = [
     updatedAt: new Date(),
     comments: [],
   },
+  {
+    _id: new ObjectId(),
+    image: 'pizza',
+    filename: 'https://media.giphy.com/media/iJa6kOfJ3qN7a/giphy.gif',
+    title: 'Panza llena, corazón contento',
+    // @ts-ignore
+    category: comida._id,
+    // @ts-ignore
+    owner: userTest3._id,
+    voteUp: [],
+    voteDown: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    comments: [],
+  },
+  {
+    _id: new ObjectId(),
+    image: 'cine',
+    filename: 'https://media.giphy.com/media/1O3oKany2IXtmKoV3N/giphy.gif',
+    title: 'Sigue la cuarentena',
+    // @ts-ignore
+    category: cine._id,
+    // @ts-ignore
+    owner: userTest2._id,
+    voteUp: [],
+    voteDown: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    comments: [],
+  },
+  {
+    _id: new ObjectId(),
+    image: 'cine',
+    filename: 'https://media.giphy.com/media/6dZSMuwIZTIju/giphy.gif',
+    title: 'Últimos ajustes para presentar',
+    // @ts-ignore
+    category: cine._id,
+    // @ts-ignore
+    owner: userTest3._id,
+    voteUp: [],
+    voteDown: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    comments: [],
+  },
 ];
 
-export const dbCategories = [futbol, moda, musica];
+export const dbCategories = [futbol, moda, musica, comida, cine];

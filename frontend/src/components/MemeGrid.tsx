@@ -15,6 +15,7 @@ export const MemeGrid = ({ category }: { category?: ICategory }) => {
     return (
       <div className="card-columns">
         {memes.map((meme, index) => {
+          console.log(meme);
           return <MemeCard key={index} {...meme} />;
         })}
       </div>

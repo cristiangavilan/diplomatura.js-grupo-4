@@ -39,7 +39,7 @@ export const AddComment = () => {
       </div>
       <div className="col-2">
         <button className="form-control btn btn-pink" type="button" onClick={onSubmit}>
-          Comentar
+          <i className="fas fa-paper-plane"></i>
         </button>
       </div>
     </div>
