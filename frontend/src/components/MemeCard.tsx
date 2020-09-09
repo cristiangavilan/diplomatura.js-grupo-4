@@ -1,12 +1,32 @@
 import React from 'react';
 import { IMemeListItem } from 'memegram-commons/models/Meme.model';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-export const MemeCard = ({ _id, title, filename, owner, comments, voteUp, voteDown }: IMemeListItem) => {
+export const MemeCard = ({
+  _id,
+  title,
+  filename,
+  owner,
+  category,
+  comments,
+  voteUp,
+  voteDown,
+  createdAt,
+}: IMemeListItem) => {
   return (
     <div className="card border-pink">
       <div className="card-header text-capitalize">
-        <img className="rounded" src={owner.img} alt="user" width="30" /> <strong>{title}</strong>
+        <h6>
+          <img className="rounded" src={owner.img} alt="user" width="30" /> {owner.username}
+        </h6>
+        <div className="row">
+          <div className="col text-center">
+            <h5>
+              <strong>{title}</strong>
+            </h5>
+          </div>
+        </div>
       </div>
 
       <div className="card-body">
@@ -23,7 +43,7 @@ export const MemeCard = ({ _id, title, filename, owner, comments, voteUp, voteDo
 
       <div className="card-footer">
         <div className="row">
-          <div className="col-6 text-light">
+          <div className="col text-light">
             <span className="badge badge-pink m-1 p-1">
               <i className="fas fa-thumbs-up"></i> {voteUp}
             </span>
@@ -31,8 +51,13 @@ export const MemeCard = ({ _id, title, filename, owner, comments, voteUp, voteDo
               <i className="fas fa-thumbs-down"></i> {voteDown}
             </span>
           </div>
-          <div className="col-6 text-right">
-            <p className="text-muted">2 days ago</p>
+          <div className="col text-right">
+            <p>{category.name}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <p className="text-muted">{moment(createdAt).fromNow()}</p>
           </div>
         </div>
       </div>
