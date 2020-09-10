@@ -6,7 +6,7 @@ import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
 
 export const MemeSdk = {
-  async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
+  async getMemes(categoryId?: string): Promise<IMemeListItem[]> {
     let memes: IMeme[] = [];
 
     if (categoryId) {
