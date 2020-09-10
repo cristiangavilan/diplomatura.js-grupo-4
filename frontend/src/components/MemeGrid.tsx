@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { MemeCard } from './MemeCard';
 import { IMemeListItem } from 'memegram-commons/models/Meme.model';
 import { MemeSdk } from '../sdk/MemeSdk';
-import { ICategory } from 'memegram-commons/models/Category.model';
+import { TCategoryListItem } from 'memegram-commons/models/Category.model';
 
-export const MemeGrid = ({ category }: { category?: ICategory }) => {
+export const MemeGrid = ({ category }: { category?: TCategoryListItem }) => {
   const [memes, setMemes] = useState<IMemeListItem[]>([]);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { IBase, TId } from './Base.model';
 import { IComment, IMemeComment } from './Comment.model';
-import { ICategory } from './Category.model';
+import { TCategoryListItem } from './Category.model';
 import { IUser } from './User.model';
 
 interface _IMeme {
@@ -23,7 +23,7 @@ export interface IMeme extends _IMeme, IBase {
 
 export interface IMemeListItem extends _IMeme {
   _id: string;
-  category: ICategory;
+  category: TCategoryListItem;
   owner: IUser;
   voteUp: number;
   voteDown: number;
@@ -33,7 +33,7 @@ export interface IMemeListItem extends _IMeme {
 
 export interface IMemeDetails extends _IMeme {
   _id: string;
-  category: ICategory;
+  category: TCategoryListItem;
   owner: IUser;
   voteUp: number;
   voteDown: number;

@@ -47,7 +47,6 @@ export const Navbar = () => {
               </NavLink>
             </li>
           )}
-
           {state.loggedIn && (
             <>
               <li onClick={handleNavCollapse}>

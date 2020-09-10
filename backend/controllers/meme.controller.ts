@@ -42,7 +42,9 @@ export const postMeme = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({ msg: 'Debes completar el formulario' });
   }
-  const newMeme = new Meme(req.body);
+
+  const newMeme = new Meme(req.body.meme);
+ 
   try {
     await newMeme.save();
     return res.status(200).json({
@@ -51,6 +53,7 @@ export const postMeme = async (req: Request, res: Response) => {
       newMeme,
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       ok: false,
       msg: 'Verificar los datos enviados',

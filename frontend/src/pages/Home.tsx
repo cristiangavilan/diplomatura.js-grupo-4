@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { MemeGrid } from '../components/MemeGrid';
 import { SelectCategory } from '../components/SelectCategory';
-import { ICategory } from 'memegram-commons/models/Category.model';
+import { TCategoryListItem } from 'memegram-commons/models/Category.model';
 
 export const Home = () => {
-  const [category, setCategory] = useState<ICategory>();
+  const [category, setCategory] = useState<TCategoryListItem>();
 
   return (
     <div className="m-4">

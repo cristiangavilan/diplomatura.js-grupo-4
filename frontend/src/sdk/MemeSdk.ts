@@ -5,6 +5,7 @@ import { ObjectId } from 'bson';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
 import { IComment } from 'memegram-commons/models/Comment.model';
+import { axiosInstance } from '../utils/axios.util';
 
 export const MemeSdk = {
   async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
@@ -32,8 +33,9 @@ export const MemeSdk = {
   },
 
   async addMeme(meme: IMeme): Promise<void> {
-    meme._id = new ObjectId();
+    //await axiosInstance.post('/meme', { meme }); //funciona!..probé sin validación en meme.routes.ts router.post('/meme', postMeme);
 
+    meme._id = new ObjectId();
     dbMemes.push(meme);
   },
 

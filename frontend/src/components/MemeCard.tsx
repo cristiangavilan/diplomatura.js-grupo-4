@@ -18,7 +18,9 @@ export const MemeCard = ({
     <div className="card border-pink">
       <div className="card-header text-capitalize">
         <h6>
-          <img className="rounded" src={owner.img} alt="user" width="30" /> {owner.username}
+          {owner?.img && <img className="rounded" src={owner.img} alt="user" width="30" />}
+          {!owner.img && <img className="rounded" src={process.env.REACT_APP_IMG_USER_GENERIC} alt="user" width="30" />}
+          {owner?.username}
         </h6>
         <div className="row">
           <div className="col text-center">
@@ -52,7 +54,7 @@ export const MemeCard = ({
             </span>
           </div>
           <div className="col text-right">
-            <p>{category.name}</p>
+            <p>{category?.name}</p>
           </div>
         </div>
         <div className="row">
