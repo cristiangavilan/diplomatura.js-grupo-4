@@ -15,7 +15,7 @@ export const SelectCategory = ({
   const [categoryId, setCategoryId] = useState<TId | undefined>();
 
   const fetchCategories = useCallback(async () => {
-    const data = await CategorySdk.getCategories();
+    const data: ICategory[] = await CategorySdk.getCategories();
     setCategories(data);
   }, []);
 
@@ -27,7 +27,15 @@ export const SelectCategory = ({
     console.debug('selectCategory called');
     if (categories.length) {
       if (categoryId) {
-        const selectedCategory = categories.find((c) => c._id?.equals(categoryId));
+        const selectedCategory = categories.find((c) => {
+          console.log('SELECT:', c);
+          if (c._id) {
+            return c._id === categoryId.toString();
+          } else {
+            return false;
+          }
+          //c._id?.equals(categoryId.toString());
+        });
         console.debug('selectCategory', categoryId, selectedCategory);
         onSelect(selectedCategory);
       } else {
