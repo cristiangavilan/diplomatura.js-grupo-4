@@ -4,9 +4,12 @@ import { TId } from 'memegram-commons/models/Base.model';
 import { ObjectId } from 'bson';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
+import { IComment } from 'memegram-commons/models/Comment.model';
+
+import { axiosInstance } from '../utils/axios.util';
 
 export const MemeSdk = {
-  async getMemes(categoryId?: string): Promise<IMemeListItem[]> {
+  async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
     let memes: IMeme[] = [];
 
     if (categoryId) {
@@ -31,15 +34,16 @@ export const MemeSdk = {
   },
 
   async addMeme(meme: IMeme): Promise<void> {
-    meme._id = new ObjectId();
+    //await axiosInstance.post('/meme', { meme }); //funciona!..probé sin validación en meme.routes.ts router.post('/meme', postMeme);
 
+    meme._id = new ObjectId();
     dbMemes.push(meme);
   },
 
-  async getMemeById(_id: TId): Promise<IMemeDetails | undefined> {
+  async getMemeById(id: string): Promise<IMemeDetails | undefined> {
     const meme: any = Object.assign(
       {},
-      dbMemes.find((m) => m._id?.equals(_id))
+      dbMemes.find((m) => `${m._id}` === id)
     );
 
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
@@ -47,7 +51,12 @@ export const MemeSdk = {
     meme.voteUp = meme.voteUp?.length || 0;
     meme.voteDown = meme.voteDown?.length || 0;
     meme.voted = 'up';
-
+    meme.comments = meme.comments.map((c: IComment) => {
+      return {
+        ...c,
+        user: dbUsers.find((u) => u._id?.equals(c.user)),
+      };
+    });
     return meme as IMemeDetails;
   },
 };

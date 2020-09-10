@@ -40,7 +40,15 @@ export const postMeme = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({ msg: 'Debes completar el formulario' });
   }
-  const newMeme = new Meme(req.body);
+
+  const newMeme = new Meme(req.body.meme);
+  console.log(newMeme);
+
+  //prueba para subir meme:
+  if (!newMeme.owner) {
+    newMeme.owner = '5f498a8bf7040f0f28131b6e';
+  }
+
   try {
     await newMeme.save();
     return res.status(200).json({
@@ -49,6 +57,7 @@ export const postMeme = async (req: Request, res: Response) => {
       newMeme,
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       ok: false,
       msg: 'Verificar los datos enviados',

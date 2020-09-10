@@ -24,7 +24,6 @@ export const postCategory = async (req: Request, res: Response) => {
 };
 
 export const getCategory = async (req: Request, res: Response) => {
-  console.log('a ver que hay');
   const category = await Category.find();
   return res.status(200).json({
     ok: true,

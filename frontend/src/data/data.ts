@@ -4,27 +4,27 @@ import { IMeme } from 'memegram-commons/models/Meme.model';
 import { ObjectId } from 'bson';
 
 const futbol: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f3c6baca8d16174a544b1f8'),
   name: 'Deportes',
 };
 
 const moda: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f596856753e477c301a029d'),
   name: 'Moda',
 };
 
 const musica: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f59b6a2753e477c301a029f'),
   name: 'Musica',
 };
 
 const comida: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f59b684753e477c301a029e'),
   name: 'Comida',
 };
 
 const cine: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f596856753e477c301a029c'),
   name: 'Cine',
 };
 

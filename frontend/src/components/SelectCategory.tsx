@@ -15,7 +15,7 @@ export const SelectCategory = ({
 
   const fetchCategories = useCallback(async () => {
     const data: TCategoryListItem[] = await CategorySdk.getCategories();
-    debugger;
+    //debugger;
     setCategories(data);
   }, []);
 
@@ -24,7 +24,6 @@ export const SelectCategory = ({
   }, [fetchCategories]);
 
   useEffect(() => {
-    console.debug('selectCategory called');
     if (categories.length) {
       if (categoryId) {
         const selectedCategory = categories.find((c) => {
@@ -34,10 +33,8 @@ export const SelectCategory = ({
             return false;
           }
         });
-        console.debug('selectCategory', categoryId, selectedCategory);
         onSelect(selectedCategory);
       } else {
-        console.debug('selectCategory none');
         onSelect(undefined);
       }
     }

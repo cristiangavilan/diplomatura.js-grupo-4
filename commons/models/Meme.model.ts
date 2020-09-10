@@ -1,9 +1,9 @@
 import { IBase, TId } from './Base.model';
-import { IComment } from './Comment.model';
-import { ICategory } from './Category.model';
+import { IComment, IMemeComment } from './Comment.model';
+import { TCategoryListItem } from './Category.model';
 import { IUser } from './User.model';
 
-interface _IMeme extends IBase {
+interface _IMeme {
   image: string;
   filename: string;
   title: string;
@@ -13,7 +13,7 @@ interface _IMeme extends IBase {
 
 export type TMemeVoteStatus = 'up' | 'down' | 'no';
 
-export interface IMeme extends _IMeme {
+export interface IMeme extends _IMeme, IBase {
   category: TId;
   owner: TId;
   voteUp?: TId[];
@@ -22,7 +22,8 @@ export interface IMeme extends _IMeme {
 }
 
 export interface IMemeListItem extends _IMeme {
-  category: ICategory;
+  _id: string;
+  category: TCategoryListItem;
   owner: IUser;
   voteUp: number;
   voteDown: number;
@@ -31,10 +32,11 @@ export interface IMemeListItem extends _IMeme {
 }
 
 export interface IMemeDetails extends _IMeme {
-  category: ICategory;
+  _id: string;
+  category: TCategoryListItem;
   owner: IUser;
   voteUp: number;
   voteDown: number;
-  comments: IComment[];
+  comments: IMemeComment[];
   voted: TMemeVoteStatus;
 }
