@@ -4,6 +4,7 @@ import { TId } from 'memegram-commons/models/Base.model';
 import { ObjectId } from 'bson';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
+import { IComment } from 'memegram-commons/models/Comment.model';
 
 export const MemeSdk = {
   async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
@@ -36,10 +37,10 @@ export const MemeSdk = {
     dbMemes.push(meme);
   },
 
-  async getMemeById(_id: TId): Promise<IMemeDetails | undefined> {
+  async getMemeById(id: string): Promise<IMemeDetails | undefined> {
     const meme: any = Object.assign(
       {},
-      dbMemes.find((m) => m._id?.equals(_id))
+      dbMemes.find((m) => `${m._id}` === id)
     );
 
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
@@ -47,7 +48,12 @@ export const MemeSdk = {
     meme.voteUp = meme.voteUp?.length || 0;
     meme.voteDown = meme.voteDown?.length || 0;
     meme.voted = 'up';
-
+    meme.comments = meme.comments.map((c: IComment) => {
+      return {
+        ...c,
+        user: dbUsers.find((u) => u._id?.equals(c.user)),
+      };
+    });
     return meme as IMemeDetails;
   },
 };

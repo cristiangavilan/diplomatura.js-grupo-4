@@ -1,14 +1,22 @@
-import { userInfo } from 'os';
 import React, { useState } from 'react';
-import { IComment } from '../../../commons/models/Comment.model';
+import { IComment, IMemeComment } from 'memegram-commons/models/Comment.model';
 import { useAppState } from '../state';
 
-export const AddComment = () => {
+interface IMemeCommentProps {
+  comments: IMemeComment[];
+}
+
+export const AddComment = ({ comments }: IMemeCommentProps) => {
+  console.log(comments);
   const state = useAppState();
   const [comment, setComment] = useState('');
 
   const onChangeComment = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setComment(event ? event?.target.value : '');
+  };
+
+  const onSave = (comment: IMemeComment) => {
+    // return comments.push(comment);
   };
 
   const onSubmit = () => {
@@ -19,7 +27,7 @@ export const AddComment = () => {
       user: state.user?._id,
     };
 
-    // onSave(newComment);
+    //onSave(newComment);
   };
 
   return (

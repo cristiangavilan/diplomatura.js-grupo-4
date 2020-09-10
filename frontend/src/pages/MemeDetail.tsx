@@ -3,14 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CommentGrid } from '../components/CommentGrid';
 import { MemeSdk } from '../sdk/MemeSdk';
+import moment from 'moment';
 
 export const MemeDetail = () => {
-  const { _id } = useParams();
+  const { id } = useParams<{ id: string }>();
+
   const [meme, setMeme] = useState<IMemeDetails | undefined>(undefined);
 
   useEffect(() => {
-    MemeSdk.getMemeById(_id).then((m) => setMeme(m));
-  }, [_id]);
+    MemeSdk.getMemeById(id).then((m) => setMeme(m));
+  }, [id]);
 
   if (meme) {
     console.log(meme);
@@ -28,15 +30,13 @@ export const MemeDetail = () => {
             </div>
             <div className="row">
               <div className="col text-pink m-2 p-2">Vote Component</div>
-              <div className="col text-pink text-right m-2 p-2">fecha en Moment</div>
+              <div className="col text-pink text-right m-2 p-2">{moment(meme.createdAt).fromNow()}</div>
             </div>
           </div>
 
           <div className="card-footer">
             <div className="row">
-              <div className="col">
-                <CommentGrid />
-              </div>
+              <div className="col">{meme && <CommentGrid meme={meme} />}</div>
             </div>
           </div>
         </div>
