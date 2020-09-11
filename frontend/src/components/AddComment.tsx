@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
 import { IComment, IMemeComment } from 'memegram-commons/models/Comment.model';
 import { useAppState } from '../state';
+import { CommentsSdk } from '../sdk/CommentsSdk';
 
 interface IMemeCommentProps {
-  comments: IMemeComment[];
+  onSaveComment: (comment: IMemeComment) => void | Promise<void>;
 }
 
-export const AddComment = ({ comments }: IMemeCommentProps) => {
-  console.log(comments);
+export const AddComment = ({ onSaveComment }: IMemeCommentProps) => {
   const state = useAppState();
-  const [comment, setComment] = useState('');
+  const [commentText, setCommentText] = useState('');
 
   const onChangeComment = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setComment(event ? event?.target.value : '');
-  };
-
-  const onSave = (comment: IMemeComment) => {
-    // return comments.push(comment);
+    setCommentText(event ? event?.target.value : '');
   };
 
   const onSubmit = () => {
-    const newComment: IComment = {
-      comment: comment,
-      createdAt: new Date(),
-      // @ts-ignore
-      user: state.user?._id,
-    };
+    if (commentText.length > 4) {
+      const newComment: IMemeComment = {
+        comment: commentText,
+        createdAt: new Date(),
+        // @ts-ignore
+        user: state.user,
+      };
 
-    //onSave(newComment);
+      onSaveComment(newComment);
+      setCommentText('');
+    }
   };
 
   return (
     <div className="form-row mb-4">
       <div className="col-10">
         <input
+          id="inputComment"
           name="comment"
           type="text"
           className="form-control"
@@ -41,7 +41,7 @@ export const AddComment = ({ comments }: IMemeCommentProps) => {
           placeholder="Ingrese su Comentario"
           minLength={1}
           maxLength={255}
-          value={comment}
+          value={commentText}
           onChange={onChangeComment}
         />
       </div>

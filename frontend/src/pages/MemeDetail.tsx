@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CommentGrid } from '../components/CommentGrid';
 import { MemeSdk } from '../sdk/MemeSdk';
 import moment from 'moment';
+import { UserInfo } from '../components/UserInfo';
 
 export const MemeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +21,7 @@ export const MemeDetail = () => {
       <div className="container">
         <div className="card border-pink m-2">
           <div className="card-header text-capitalize">
-            <img className="rounded" src={meme.owner.img} alt="user" width="30" /> <strong>{meme.title}</strong>
+            <UserInfo user={meme.owner} /> <strong>{meme.title}</strong>
           </div>
           <div className="card-body">
             <div className="row">

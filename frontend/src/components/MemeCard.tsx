@@ -2,6 +2,7 @@ import React from 'react';
 import { IMemeListItem } from 'memegram-commons/models/Meme.model';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { UserInfo } from './UserInfo';
 
 export const MemeCard = ({
   _id,
@@ -17,11 +18,7 @@ export const MemeCard = ({
   return (
     <div className="card border-pink">
       <div className="card-header text-capitalize">
-        <h6>
-          {owner?.img && <img className="rounded" src={owner.img} alt="user" width="30" />}
-          {!owner.img && <img className="rounded" src={process.env.REACT_APP_IMG_USER_GENERIC} alt="user" width="30" />}
-          {owner?.username}
-        </h6>
+        <UserInfo user={owner} />
         <div className="row">
           <div className="col text-center">
             <h5>
