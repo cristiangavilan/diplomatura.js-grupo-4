@@ -59,11 +59,12 @@ export const SelectCategory = ({
               Todos
             </option>
           )}
-          {categories.map((category, index) => (
-            <option key={index} value={category._id}>
-              {category.name}
-            </option>
-          ))}
+          {categories?.length &&
+            categories.map((category, index) => (
+              <option key={index} value={category._id}>
+                {category.name}
+              </option>
+            ))}
         </select>
       </div>
     </div>
