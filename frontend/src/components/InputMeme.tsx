@@ -20,6 +20,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   const [categoryId, setCategoryId] = useState<TId | undefined>();
   const [categoryName, setCategoryName] = useState<string>('');
   const [enableCompleteData, setEnableCompleteData] = useState<boolean>(false); //hasta que no cargue la imagen no se deberia habilitar el boton guardar, label titulo, select categoria.
+  const [askCancel, setAskCancel] = useState<boolean>(false);
 
   const getUrlImage = (url: string) => {
     if (url) {
@@ -32,8 +33,13 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   };
 
   const onCancel = () => {
+    history.push('/');
+  };
+
+  const onWantToCancel = () => {
     if (urlImage) {
       //Desea cancelar?
+      setAskCancel(true);
     } else {
       history.push('/');
     }
@@ -159,7 +165,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
             )}
             <div>
               <div className="col">
-                <button className="btn-pink m-2" onClick={onCancel}>
+                <button className="btn-pink m-2" onClick={onWantToCancel}>
                   Cancelar
                 </button>
 
@@ -167,6 +173,17 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                   <button className="btn-pink m-2" type="button" onClick={onSubmit}>
                     Guardar
                   </button>
+                )}
+                {askCancel && (
+                  <div className="alert alert-danger" role="alert">
+                    ¿Está seguro que desea cancelar?
+                    <button className="btn-pink m-2" onClick={onCancel}>
+                      {'si '}
+                    </button>
+                    <button className="btn-pink m-2" onClick={() => setAskCancel(false)}>
+                      no
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
