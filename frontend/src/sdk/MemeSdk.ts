@@ -58,8 +58,8 @@ export const MemeSdk = {
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
     meme.owner = dbUsers.find((u) => u._id?.equals(meme.owner));
     meme.voteUp = meme.voteUp?.length || 0;
-    meme.voteDown = meme.voteDown?.length || 0;
-    meme.voted = 'up';
+    meme.voteDown = meme.voteDown?.length || 1;
+    meme.voted = 'down';
     meme.comments = meme.comments?.map((c: IComment) => {
       return {
         ...c,

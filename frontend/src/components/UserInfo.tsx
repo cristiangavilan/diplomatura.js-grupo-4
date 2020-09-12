@@ -10,7 +10,7 @@ export const UserInfo = ({ user }: { user: IUser }) => {
           src={user?.img || process.env.REACT_APP_IMG_USER_GENERIC}
           alt="user"
           width="30"
-        />
+        />{' '}
         <strong>{user?.username}</strong>
       </h6>
     </div>
