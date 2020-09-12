@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { useAppState } from '../state';
@@ -6,10 +6,35 @@ import { useAppState } from '../state';
 export const Navbar = () => {
   const state = useAppState();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+  const handleNavCollapse = () => {
+    setIsNavCollapsed(!isNavCollapsed);
+    window.scrollTo(0, 0);
+  };
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      const isTop = window.scrollY < 100;
+      if (isTop !== true) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    });
+    //equivalente a componentWillUnmount()
+    return () => {
+      window.removeEventListener('scroll', () => {});
+    };
+  });
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+    <nav
+      className={
+        scrolled
+          ? 'navbar navbar-expand-sm navbar-light bg-light scrolled'
+          : 'navbar navbar-expand-sm navbar-light bg-light'
+      }
+    >
       <div className="row">
         <div className="col">
           <Link className="navbar-brand" to="/">

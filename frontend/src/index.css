@@ -659,3 +659,10 @@ a.text-pink:focus {
     margin-bottom: 0.75rem;
   }
 }
+
+.scrolled {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
