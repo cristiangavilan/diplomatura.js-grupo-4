@@ -6,10 +6,11 @@ import { MemeSdk } from '../sdk/MemeSdk';
 import moment from 'moment';
 import { UserInfo } from '../components/UserInfo';
 import { Vote } from '../components/Vote';
+import { useAppState } from '../state';
 
 export const MemeDetail = () => {
   const { id } = useParams<{ id: string }>();
-
+  const state = useAppState();
   const [meme, setMeme] = useState<IMemeDetails | undefined>(undefined);
 
   useEffect(() => {
@@ -36,11 +37,18 @@ export const MemeDetail = () => {
             <div className="row">
               <div className="col text-muted m-1">{moment(meme.createdAt).fromNow()}</div>
             </div>
-            <div className="row">
-              <div className="col text-pink m-1">
-                <Vote countVoteUp={10} countVoteDown={meme.voteDown} flagVoteUp={false} flagVoteDown={false} />
+            {state.user && (
+              <div className="row">
+                <div className="col text-pink m-1">
+                  <Vote
+                    countVoteUp={meme.voteUp}
+                    countVoteDown={meme.voteDown}
+                    flagVoteUp={meme.voted === 'up'}
+                    flagVoteDown={meme.voted === 'down'}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="card-footer">
