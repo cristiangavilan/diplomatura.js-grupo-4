@@ -7,7 +7,6 @@ interface IMemeCommentProps {
 }
 
 export const AddComment = ({ comments }: IMemeCommentProps) => {
-  console.log(comments);
   const state = useAppState();
   const [comment, setComment] = useState('');
 

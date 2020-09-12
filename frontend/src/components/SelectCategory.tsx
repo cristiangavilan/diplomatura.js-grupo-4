@@ -11,7 +11,7 @@ export const SelectCategory = ({
   withAllCategory?: Boolean;
 }) => {
   const [categories, setCategories] = useState<TCategoryListItem[]>([]);
-  const [categoryId, setCategoryId] = useState<String | undefined>();
+  const [categoryId, setCategoryId] = useState<string | undefined>();
 
   const fetchCategories = useCallback(async () => {
     const data: TCategoryListItem[] = await CategorySdk.getCategories();
