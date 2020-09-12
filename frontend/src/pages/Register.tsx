@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RegisterSdk } from '../sdk/UserSdk';
 import { useHistory } from 'react-router-dom';
+import UploadCloudFile from '../components/UploadCloudFile';
 
 /* 
 {
@@ -21,52 +22,64 @@ export const Register = () => {
   const [passUser, setPassUser] = useState<string>();
   const [nameUser, setUserName] = useState<string>();
   const [repeatPass, SetRepeatPass] = useState<string>();
+  const [urlImage, setUrlImage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [showMustCompleteAlert, setShowMustCompleteAlert] = useState<boolean>(false);
+
+  const getUrlImage = (url: string) => {
+    if (url) {
+      setUrlImage(url);
+    }
+  };
 
   const onChangeMailUser = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const newMail: string = event ? event?.target.value : '';
-    //console.log('newMail:', newMail);
+    setErrorMessage('');
+    setShowMustCompleteAlert(false);
     setMailUser(newMail);
   };
 
   const onChangePassUser = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const newPass: string = event ? event?.target.value : '';
-    //console.log('newPass:', newPass);
+    setErrorMessage('');
+    setShowMustCompleteAlert(false);
     setPassUser(newPass);
   };
   const onChangeUserName = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const userName: string = event ? event?.target.value : '';
-    //console.log('newPass:', userName);
+    setErrorMessage('');
+    setShowMustCompleteAlert(false);
     setUserName(userName);
   };
   const onChangeRepeatPass = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const confirmPass: string = event ? event?.target.value : '';
-    //console.log('newPass:', confirmPass);
+    setErrorMessage('');
+    setShowMustCompleteAlert(false);
     SetRepeatPass(confirmPass);
   };
 
-  const onRegister = async (mailUser: any, passUser: any, nameUser: any, repeatPass: any) => {
+  const onRegister = async (mailUser: any, passUser: any, nameUser: any, repeatPass: any, urlImage?: any) => {
+    let message: string = '';
     if (!nameUser) {
-      alert('Debes ingresar un nombre de usuario');
-      return;
+      message += 'Debes ingresar un nombre de usuario';
     }
     if (!mailUser) {
-      alert('Debes ingresar un email');
-      return;
+      message += message ? ', un email' : 'Debes ingresar un email';
+    } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mailUser)) {
+      message += message ? ', el email es inválido' : 'Debes ingresar un email válido';
     }
     if (!passUser) {
-      alert('Debes ingresar un Password');
-      return;
+      message += message ? ', password' : 'Debes ingresar password';
     }
-    if (!repeatPass) {
-      alert('Debes volver a ingresar un  Password');
-      return;
+    if (passUser && (!repeatPass || passUser !== repeatPass)) {
+      message += (message ? '. ' : '') + 'Revise la confirmación de password';
     }
-    if (passUser !== repeatPass) {
-      alert('Verificar password');
-      return;
-    } else {
-      await RegisterSdk.register(mailUser, passUser, nameUser);
+    if (!message) {
+      await RegisterSdk.register(mailUser, passUser, nameUser, urlImage);
       history.push('/');
+    } else {
+      setErrorMessage(message);
+      setShowMustCompleteAlert(true);
     }
   };
 
@@ -120,10 +133,21 @@ export const Register = () => {
         </div>
 
         <div className="campo-form">
+          <label htmlFor="password">Imagen de Perfil</label>
+          <UploadCloudFile onGetUrlImage={getUrlImage} buttonText="Imagen de Perfil" />
+          <div>{urlImage && <img className="rounded-circle" src={urlImage} alt={'perfil'} width="50" />}</div>
+        </div>
+
+        {showMustCompleteAlert && (
+          <div className="alert alert-danger" role="alert">
+            {errorMessage}
+          </div>
+        )}
+        <div className="campo-form">
           <button
             className="btn btn-lg btn-pink"
             onClick={() => {
-              onRegister(mailUser, passUser, nameUser, repeatPass);
+              onRegister(mailUser, passUser, nameUser, repeatPass, urlImage);
             }}
           >
             Registro

@@ -9,8 +9,8 @@ export const UserSdk = {
 };
 
 export const RegisterSdk = {
-  async register(email: string, password: string, username: string): Promise<IUser> {
-    const respuesta = await axiosInstance.post<IUser>('/user', { email, password, username });
+  async register(email: string, password: string, username: string, img?: string): Promise<IUser> {
+    const respuesta = await axiosInstance.post<IUser>('/user', { email, password, username, img });
     return respuesta.data;
   },
 };
