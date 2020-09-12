@@ -59,7 +59,7 @@ export const MemeSdk = {
     meme.voteUp = meme.voteUp?.length || 0;
     meme.voteDown = meme.voteDown?.length || 0;
     meme.voted = 'up';
-    meme.comments = meme.comments.map((c: IComment) => {
+    meme.comments = meme.comments?.map((c: IComment) => {
       return {
         ...c,
         user: dbUsers.find((u) => u._id?.equals(c.user)),

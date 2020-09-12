@@ -2,6 +2,7 @@ import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
 import { IMeme } from 'memegram-commons/models/Meme.model';
 import { ObjectId } from 'bson';
+import { IMemeComment } from 'memegram-commons/models/Comment.model';
 
 const futbol: ICategory = {
   _id: new ObjectId('5f3c6baca8d16174a544b1f8'),
@@ -50,6 +51,24 @@ const userTest3: IUser = {
 };
 
 export const dbUsers: IUser[] = [userTest1, userTest2, userTest3];
+
+export const dbComments: IMemeComment[] = [
+  {
+    user: userTest1,
+    comment: 'Muy bueno este meme',
+    createdAt: new Date(),
+  },
+  {
+    user: userTest2,
+    comment: 'Tambien, muy bueno este meme',
+    createdAt: new Date(),
+  },
+  {
+    user: userTest3,
+    comment: 'No te gastaste mucho...',
+    createdAt: new Date(),
+  },
+];
 
 export const dbMemes: IMeme[] = [
   {
