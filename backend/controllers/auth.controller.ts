@@ -59,7 +59,8 @@ export const googleSingIn = async (req: Request, res: Response) => {
     res.json({
       ok: true,
       msg: 'Google SingIn',
-      token: Auth.generarToken(user.id),
+      token: Auth.generarToken(user),
+      user,
     });
   } catch (error) {
     res.status(401).json({
