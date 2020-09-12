@@ -5,6 +5,7 @@ import { ObjectId } from 'bson';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
 import { IComment } from 'memegram-commons/models/Comment.model';
+
 import { axiosInstance } from '../utils/axios.util';
 
 export const MemeSdk = {
@@ -57,8 +58,8 @@ export const MemeSdk = {
     meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
     meme.owner = dbUsers.find((u) => u._id?.equals(meme.owner));
     meme.voteUp = meme.voteUp?.length || 0;
-    meme.voteDown = meme.voteDown?.length || 0;
-    meme.voted = 'up';
+    meme.voteDown = meme.voteDown?.length || 1;
+    meme.voted = 'down';
     meme.comments = meme.comments?.map((c: IComment) => {
       return {
         ...c,
@@ -66,5 +67,19 @@ export const MemeSdk = {
       };
     });
     return meme as IMemeDetails;
+  },
+};
+
+export const getMemeAxio = {
+  async getMeme(): Promise<IMemeListItem> {
+    const respuesta = await axiosInstance.get<IMemeListItem>('/meme');
+    return respuesta.data;
+  },
+};
+
+export const postMemeAxio = {
+  async addMeme(meme: IMeme): Promise<IMeme> {
+    const respuesta = await axiosInstance.post<IMeme>('/meme', { meme });
+    return respuesta.data;
   },
 };

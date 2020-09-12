@@ -14,7 +14,7 @@ export class Auth {
 
   /**
    * Version  del token. .
-   * Solo posee el  username y el email.
+   * Solo posee el id
    */
 
   // Crea el token con los datos de sesión
@@ -23,8 +23,8 @@ export class Auth {
     return jwt.sign(
       {
         id: user.id,
-        username: user.username,
-        email: user.email,
+        //username: user.username,
+        // email: user.email,
       },
       `${JWTKEY}`,
       {

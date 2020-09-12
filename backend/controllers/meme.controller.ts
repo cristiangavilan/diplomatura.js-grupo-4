@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import Meme from '../models/Meme.model';
 
 export const getMeme = async (req: Request, res: Response) => {
+
   let desde = req.query.desde || 0; //variable que espera un valor para paginar
   let hasta = req.query.hasta || 30; //variable que espera un valor para paginar
   desde = Number(desde); //fuerzo que sea numero
   hasta = Number(hasta); //fuerzo que sea numero
+
 
   Meme.find({}, ' ') //pido lo que quiero ver
     .skip(desde) //salta el valor desde (muestra el valor desde ej 10 muestra desde el 11)

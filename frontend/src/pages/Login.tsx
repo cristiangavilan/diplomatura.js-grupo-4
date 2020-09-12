@@ -4,11 +4,19 @@ import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { setLocalJwt } from '../utils/jwt.util';
 import GoogleLogin from 'react-google-login';
-import { UserSdk } from '../sdk/UserSdk';
+import { UserSdk, GoogleSdk } from '../sdk/UserSdk';
 
 export const Login = () => {
-  const responseGoogle = (response: any) => {
-    console.log(response);
+  const responseGoogle = async (response: any) => {
+    const { tokenId } = response;
+    const data = await GoogleSdk.login(tokenId);
+    console.log('data', data);
+    state.produce((currentState) => {
+      currentState.loggedIn = true;
+      currentState.user = data.user;
+    });
+    setLocalJwt(data.token);
+    history.push('/');
   };
 
   const state = useAppState();
@@ -84,7 +92,7 @@ export const Login = () => {
           </button>
 
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_API_KEY || ''}
+            clientId={process.env.REACT_APP_GOOGLE_ID || ''}
             buttonText="Login"
             className="btn btn-lg"
             onSuccess={responseGoogle}
@@ -100,20 +108,3 @@ export const Login = () => {
     </div>
   );
 };
-
-/*
-// State para iniciar sesión
-const [usuario, guardarUsuario] = useState({
-  email: '',
-  password: '',
-});
-
-// extraer de usuario
-const { email, password } = usuario;
-
-const onChange = (e: any) => {
-  guardarUsuario({
-    ...usuario,
-    [e.target.name]: e.target.value,
-  });
-}; */

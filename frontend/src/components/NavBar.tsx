@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { useAppState } from '../state';
+import { UserInfo } from './UserInfo';
 
 export const Navbar = () => {
   const state = useAppState();
@@ -80,13 +81,13 @@ export const Navbar = () => {
                 </NavLink>
               </li>
               <li onClick={handleNavCollapse}>
-                <NavLink className="nav-item nav-link" exact to="/profile">
-                  <i className="fas fa-user"></i> Profile
+                <NavLink className="nav-item nav-link" exact to="/logout">
+                  <i className="fa fa-sign-out"></i> Logout
                 </NavLink>
               </li>
               <li onClick={handleNavCollapse}>
-                <NavLink className="nav-item nav-link" exact to="/logout">
-                  <i className="fa fa-sign-out"></i> Logout
+                <NavLink className="nav-item nav-link" exact to="/profile">
+                  {state.user && <UserInfo user={state.user} />}
                 </NavLink>
               </li>
             </>
