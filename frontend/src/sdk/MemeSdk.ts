@@ -4,6 +4,7 @@ import { TId } from 'memegram-commons/models/Base.model';
 import { ObjectId } from 'bson';
 import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
+import { axiosInstance } from '../utils/axios.util';
 
 export const MemeSdk = {
   async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
@@ -49,5 +50,19 @@ export const MemeSdk = {
     meme.voted = 'up';
 
     return meme as IMemeDetails;
+  },
+};
+
+export const getMemeAxio = {
+  async getMeme(): Promise<IMemeListItem> {
+    const respuesta = await axiosInstance.get<IMemeListItem>('/meme');
+    return respuesta.data;
+  },
+};
+
+export const postMemeAxio = {
+  async addMeme(meme: IMeme): Promise<IMeme> {
+    const respuesta = await axiosInstance.post<IMeme>('/meme', { meme });
+    return respuesta.data;
   },
 };

@@ -36,5 +36,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0"
+  },
+  "dependencies": {
+    "@types/yup": "^0.29.7"
   }
 }
