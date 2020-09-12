@@ -8,6 +8,6 @@ export const CommentsSdk = {
   },
   async addComment(memeId: string, comment: IMemeComment): Promise<void> {
     comment._id = new ObjectId();
-    dbComments.push(comment);
+    dbComments.splice(0, 0, comment);
   },
 };

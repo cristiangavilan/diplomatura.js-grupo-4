@@ -242,6 +242,11 @@ button.bg-pink:focus {
 .border-pink {
   border-color: var(--pink02) !important;
 }
+.box-pink {
+  border-color: var(--pink02);
+  border: 1px solid;
+  border-radius: 0.5rem;
+}
 
 .text-pink {
   color: var(--pink01) !important;
