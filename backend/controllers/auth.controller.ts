@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/User.model';
 import { Auth } from '../helpers/jwt';
 import { IUserLogin } from 'memegram-commons/models/User.model';
+import { googleVerify } from '../helpers/google-verify';
 
 export const loginUsuario = async (req: Request, res: Response): Promise<Response> => {
   if (!req.body.email || !req.body.password) {
@@ -26,4 +27,44 @@ export const loginUsuario = async (req: Request, res: Response): Promise<Respons
   return res.status(400).json({
     msg: 'El password ingresado es incorrecto',
   });
+};
+
+export const googleSingIn = async (req: Request, res: Response) => {
+  let gooleToken = req.body.token;
+
+  try {
+    const { email, name, picture } = await googleVerify(gooleToken);
+
+    const userDB = await User.findOne({ email });
+    let user;
+
+    if (!userDB) {
+      // si no existe el usuario
+      user = new User({
+        username: name,
+        email,
+        password: '@@@',
+        img: picture,
+        google: true,
+      });
+    } else {
+      // existe usuario
+      user = userDB;
+      user.google = true;
+    }
+
+    // Guardar en DB
+    await user.save();
+
+    res.json({
+      ok: true,
+      msg: 'Google SingIn',
+      token: Auth.generarToken(user.id),
+    });
+  } catch (error) {
+    res.status(401).json({
+      ok: false,
+      msg: 'Token invalido',
+    });
+  }
 };
