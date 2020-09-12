@@ -641,3 +641,21 @@ a.text-pink:focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(241, 98, 246, 0.5);
 }
+
+@media (min-width: 576px) {
+  .card-columns {
+    text-align: center;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+  }
+  .card-columns .card {
+    text-align: left;
+    display: inline-block;
+    width: 60%;
+    margin-bottom: 0.75rem;
+  }
+}

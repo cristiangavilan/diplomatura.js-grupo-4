@@ -9,17 +9,26 @@ import { IComment } from 'memegram-commons/models/Comment.model';
 import { axiosInstance } from '../utils/axios.util';
 
 export const MemeSdk = {
-  async getMemes(categoryId?: TId): Promise<IMemeListItem[]> {
+  async getMemes(skip: number, limit: number, categoryId?: TId): Promise<IMemeListItem[]> {
     let memes: IMeme[] = [];
 
     if (categoryId) {
+      console.log('categoryId:', categoryId);
       memes = dbMemes.filter((m) => m.category.equals(categoryId));
+      console.log('memes:', memes);
     } else {
       memes = dbMemes;
     }
 
+    let memesFiltrados: IMeme[] = [];
+    memes.forEach((meme: IMeme, index: Number) => {
+      if (index >= skip && index < skip + limit) {
+        memesFiltrados.push(meme);
+      }
+    });
+
     // Clona objeto
-    const c = memes.map((m) => ({ ...m })) as any;
+    const c = memesFiltrados.map((m) => ({ ...m })) as any;
 
     c.forEach((m: any) => {
       m.category = (dbCategories.find((c) => c._id?.equals(m.category)) as unknown) as ICategory;
