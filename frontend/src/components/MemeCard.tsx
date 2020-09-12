@@ -43,10 +43,10 @@ export const MemeCard = ({
       <div className="card-footer">
         <div className="row">
           <div className="col text-light">
-            <span className="badge badge-pink m-1 p-1">
+            <span className="badge badge-pink m-1 p-2 box-pink">
               <i className="fas fa-thumbs-up"></i> {voteUp}
             </span>
-            <span className="badge badge-pink m-1 p-1">
+            <span className="badge badge-pink m-1 p-2 box-pink">
               <i className="fas fa-thumbs-down"></i> {voteDown}
             </span>
           </div>

@@ -5,6 +5,7 @@ import { CommentGrid } from '../components/CommentGrid';
 import { MemeSdk } from '../sdk/MemeSdk';
 import moment from 'moment';
 import { UserInfo } from '../components/UserInfo';
+import { Vote } from '../components/Vote';
 
 export const MemeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,7 +22,10 @@ export const MemeDetail = () => {
       <div className="container">
         <div className="card border-pink m-2">
           <div className="card-header text-capitalize">
-            <UserInfo user={meme.owner} /> <strong>{meme.title}</strong>
+            <UserInfo user={meme.owner} />{' '}
+            <h5 className="text-center">
+              <strong>{meme.title}</strong>
+            </h5>
           </div>
           <div className="card-body">
             <div className="row">
@@ -30,8 +34,12 @@ export const MemeDetail = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col text-pink m-2 p-2">Vote Component</div>
-              <div className="col text-pink text-right m-2 p-2">{moment(meme.createdAt).fromNow()}</div>
+              <div className="col text-muted m-1">{moment(meme.createdAt).fromNow()}</div>
+            </div>
+            <div className="row">
+              <div className="col text-pink m-1">
+                <Vote countVoteUp={10} countVoteDown={meme.voteDown} flagVoteUp={false} flagVoteDown={false} />
+              </div>
             </div>
           </div>
 
