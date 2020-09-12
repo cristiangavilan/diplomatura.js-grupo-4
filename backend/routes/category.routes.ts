@@ -6,6 +6,6 @@ const router = Router();
 
 router.post('/category', validateLogin, postCategory);
 
-router.get('/category', validateLogin, getCategory);
+router.get('/category', getCategory);
 
 export default router;

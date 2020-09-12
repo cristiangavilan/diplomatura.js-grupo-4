@@ -2,29 +2,30 @@ import { ICategory } from 'memegram-commons/models/Category.model';
 import { IUser } from 'memegram-commons/models/User.model';
 import { IMeme } from 'memegram-commons/models/Meme.model';
 import { ObjectId } from 'bson';
+import { IMemeComment } from 'memegram-commons/models/Comment.model';
 
 const futbol: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f3c6baca8d16174a544b1f8'),
   name: 'Deportes',
 };
 
 const moda: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f596856753e477c301a029d'),
   name: 'Moda',
 };
 
 const musica: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f59b6a2753e477c301a029f'),
   name: 'Musica',
 };
 
 const comida: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f59b684753e477c301a029e'),
   name: 'Comida',
 };
 
 const cine: ICategory = {
-  _id: new ObjectId(),
+  _id: new ObjectId('5f596856753e477c301a029c'),
   name: 'Cine',
 };
 
@@ -50,6 +51,24 @@ const userTest3: IUser = {
 };
 
 export const dbUsers: IUser[] = [userTest1, userTest2, userTest3];
+
+export const dbComments: IMemeComment[] = [
+  {
+    user: userTest1,
+    comment: 'Muy bueno este meme',
+    createdAt: new Date(),
+  },
+  {
+    user: userTest2,
+    comment: 'Tambien, muy bueno este meme',
+    createdAt: new Date(),
+  },
+  {
+    user: userTest3,
+    comment: 'No te gastaste mucho...',
+    createdAt: new Date(),
+  },
+];
 
 export const dbMemes: IMeme[] = [
   {

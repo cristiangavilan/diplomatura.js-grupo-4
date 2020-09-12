@@ -5,6 +5,7 @@ import { validateLogin } from '../middlewares/passport';
 const router = Router();
 
 router.post('/meme', validateLogin, postMeme);
+//router.post('/meme', postMeme);
 
 router.get('/meme', getMeme);
 

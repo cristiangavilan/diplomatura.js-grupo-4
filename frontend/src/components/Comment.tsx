@@ -1,9 +1,17 @@
 import React from 'react';
+import moment from 'moment';
+import { IMemeComment } from 'memegram-commons/models/Comment.model';
+import { UserInfo } from './UserInfo';
 
-export const Comment = () => {
+interface IMemeCommentProps {
+  comment: IMemeComment;
+}
+
+export const Comment = ({ comment }: IMemeCommentProps) => {
   return (
     <div>
-      <h3>Comment</h3>
+      <UserInfo user={comment.user} />
+      {comment.comment} <p className="text-muted text-right">{moment(comment.createdAt).fromNow()}</p>
     </div>
   );
 };

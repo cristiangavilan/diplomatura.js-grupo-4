@@ -1,31 +1,51 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Comment } from './Comment';
 import { AddComment } from './AddComment';
+import { IMemeDetails } from 'memegram-commons/models/Meme.model';
+import { IMemeComment } from 'memegram-commons/models/Comment.model';
+import { CommentsSdk } from '../sdk/CommentsSdk';
 
-export const CommentGrid = () => {
+interface ICommentGridProps {
+  meme: IMemeDetails;
+}
+
+export const CommentGrid = ({ meme }: ICommentGridProps) => {
+  console.log(meme);
+  const [comments, setComments] = useState<IMemeComment[]>([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const fetchComments = useCallback(async () => {
+    const data: IMemeComment[] = await CommentsSdk.getComments(meme._id);
+    setComments(data);
+  }, []);
+
+  const onSave = async (comment: IMemeComment) => {
+    console.log('Mande a guardar: ', comment);
+    await CommentsSdk.addComment(meme._id, comment);
+    setRefresh(!refresh);
+  };
+
+  useEffect(() => {
+    fetchComments().then();
+  }, [fetchComments, refresh]);
+
   return (
     <>
       <div className="row">
         {/* <div className="col">Total Comments</div> */}
         <div className="col">
-          <AddComment />
+          <AddComment onSaveComment={onSave} />
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <Comment />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <Comment />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <Comment />
-        </div>
-      </div>
+      {comments.map((c: IMemeComment, index) => {
+        return (
+          <div key={index} className="row">
+            <div className="col">
+              <Comment comment={c} />
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 };

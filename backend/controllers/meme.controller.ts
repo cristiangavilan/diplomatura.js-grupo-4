@@ -2,10 +2,13 @@ import { Request, Response } from 'express';
 import Meme from '../models/Meme.model';
 
 export const getMeme = async (req: Request, res: Response) => {
-  let desde = req.query.desde || 1;
-  let hasta = req.query.hasta || 20; //variable que espera un valor para paginar
+
+  let desde = req.query.desde || 0; //variable que espera un valor para paginar
+  let hasta = req.query.hasta || 30; //variable que espera un valor para paginar
   desde = Number(desde); //fuerzo que sea numero
-  hasta = Number(hasta);
+  hasta = Number(hasta); //fuerzo que sea numero
+
+
   Meme.find({}, ' ') //pido lo que quiero ver
     .skip(desde) //salta el valor desde (muestra el valor desde ej 10 muestra desde el 11)
     .limit(hasta)
@@ -41,7 +44,9 @@ export const postMeme = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({ msg: 'Debes completar el formulario' });
   }
-  const newMeme = new Meme(req.body);
+
+  const newMeme = new Meme(req.body.meme);
+ 
   try {
     await newMeme.save();
     return res.status(200).json({
@@ -50,6 +55,7 @@ export const postMeme = async (req: Request, res: Response) => {
       newMeme,
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       ok: false,
       msg: 'Verificar los datos enviados',

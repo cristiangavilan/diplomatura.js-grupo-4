@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { TId } from 'memegram-commons/models/Base.model';
-import { ICategory } from 'memegram-commons/models/Category.model';
+import { TCategoryListItem } from 'memegram-commons/models/Category.model';
 import { ObjectId } from 'bson';
 import { CategorySdk } from '../sdk/CategorySdk';
 
@@ -8,14 +7,15 @@ export const SelectCategory = ({
   onSelect,
   withAllCategory,
 }: {
-  onSelect: (category: ICategory | undefined) => void;
+  onSelect: (category: TCategoryListItem | undefined) => void;
   withAllCategory?: Boolean;
 }) => {
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [categoryId, setCategoryId] = useState<TId | undefined>();
+  const [categories, setCategories] = useState<TCategoryListItem[]>([]);
+  const [categoryId, setCategoryId] = useState<string | undefined>();
 
   const fetchCategories = useCallback(async () => {
-    const data = await CategorySdk.getCategories();
+    const data: TCategoryListItem[] = await CategorySdk.getCategories();
+    //debugger;
     setCategories(data);
   }, []);
 
@@ -24,14 +24,17 @@ export const SelectCategory = ({
   }, [fetchCategories]);
 
   useEffect(() => {
-    console.debug('selectCategory called');
     if (categories.length) {
       if (categoryId) {
-        const selectedCategory = categories.find((c) => c._id?.equals(categoryId));
-        console.debug('selectCategory', categoryId, selectedCategory);
+        const selectedCategory = categories.find((c) => {
+          if (c._id) {
+            return c._id === categoryId;
+          } else {
+            return false;
+          }
+        });
         onSelect(selectedCategory);
       } else {
-        console.debug('selectCategory none');
         onSelect(undefined);
       }
     }
@@ -47,20 +50,21 @@ export const SelectCategory = ({
           className="custom-select"
           aria-label="Selector de Categoria"
           onChange={(e) => {
-            setCategoryId(e.target.value ? new ObjectId(e.target.value) : undefined);
+            setCategoryId(e.target.value);
           }}
-          value={`${categoryId}`}
+          value={categoryId}
         >
           {withAllCategory && (
             <option key={-1} value={''}>
               Todos
             </option>
           )}
-          {categories.map((category, index) => (
-            <option key={index} value={`${category._id}`}>
-              {category.name}
-            </option>
-          ))}
+          {categories?.length &&
+            categories.map((category, index) => (
+              <option key={index} value={category._id}>
+                {category.name}
+              </option>
+            ))}
         </select>
       </div>
     </div>

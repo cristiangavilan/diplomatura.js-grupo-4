@@ -24,7 +24,7 @@ export const AppRouter = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
-          <Route path="/meme-detail/:_id" component={MemeDetail} />
+          <Route path="/meme-detail/:id" component={MemeDetail} />
           <Route path="/upload-meme" component={UploadMeme} />
           <Redirect to="/" />
         </Switch>

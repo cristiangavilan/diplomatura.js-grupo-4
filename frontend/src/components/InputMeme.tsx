@@ -28,7 +28,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   };
 
   const getFileName = (urlImage: string | undefined): string => {
-    return urlImage?.substring(urlImage.lastIndexOf('/')) || '';
+    return urlImage?.substring(urlImage.lastIndexOf('/') + 1) || '';
   };
 
   const onCancel = () => {
@@ -139,6 +139,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
                 <div>
                   {'Categoría: '}
                   <SelectCategory
+                    withAllCategory={true}
                     onSelect={(category) => {
                       setCategoryId(category?._id);
                       setCategoryName(category?.name || 'Todos');
