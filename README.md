@@ -57,3 +57,12 @@ heroku config:get VAR_NAME
 ```bash
 npm run deploy
 ```
+
+### Logs
+
+[https://devcenter.heroku.com/articles/logging](https://devcenter.heroku.com/articles/logging)
+
+```bash
+heroku logs -n 100
+heroku logs -n 100 --tail
+```
