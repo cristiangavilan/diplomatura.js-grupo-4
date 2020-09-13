@@ -92,7 +92,10 @@ export const Login = () => {
           </button>
 
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_ID || ''}
+            clientId={
+              process.env.REACT_APP_GOOGLE_ID ||
+              '761781222152-g05l8it03c8hj2aon4o8uoo4f4m9n47l.apps.googleusercontent.com'
+            }
             buttonText="Login"
             className="btn btn-lg"
             onSuccess={responseGoogle}

@@ -5,8 +5,8 @@ type TUploadCloudFileProps = {
   buttonText?: string;
 };
 
-const cloudName = `${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}`; //--> buscar porque el problema es con windows.
-const uploadPreset = `${process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET}`;
+const cloudName = `${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'diplomatura-js-grupo-4'}`; //--> buscar porque el problema es con windows.
+const uploadPreset = `${process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET || 'tjudivfq'}`;
 
 /**
  * Componente funcional: button upload de cloudinary

@@ -24,10 +24,10 @@ var corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-const { API_ENDPOINT, SERVER_PORT, PORT } = process.env;
+const { SERVER_PORT, PORT } = process.env;
 const PUBLIC_PORT = SERVER_PORT || PORT || '3000';
 
-const baseApi = API_ENDPOINT || '/api';
+const baseApi = '/api';
 
 declare global {
   namespace Express {
