@@ -2,14 +2,15 @@
   "name": "memegram",
   "version": "0.1.0",
   "scripts": {
-    "start": "cd backend && npm serve",
+    "start": "cd backend && npm run serve",
     "dev": "concurrently --kill-others -n backend,frontend \"cd backend && npm start\" \"cd frontend && npm start\"",
     "postinstall": "cd commons && npm install && cd ../backend && npm install && cd ../frontend && npm install",
     "_build": "cd backend && npm run build && cd ../frontend && npm run build",
     "build": "cd frontend && npm run deploy",
     "serve": "cd backend && npm run serve",
     "deploy:init": "heroku login && heroku git:remote -a memegramfw",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku master",
+    "server:logs": "heroku logs -n 100 --tail"
   },
   "contributors": [
     {

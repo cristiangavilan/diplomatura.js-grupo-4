@@ -45,11 +45,11 @@ Se deben configrurar todas las variables en [`.env`](commons/.env) en _Heroku_.
 
 ```bash
 # Set
-heroku config:set VAR_NAME=var-value
+npx heroku config:set VAR_NAME=var-value
 
 # View config
-heroku config
-heroku config:get VAR_NAME
+npx heroku config
+npx heroku config:get VAR_NAME
 ```
 
 ### Deploy
@@ -63,6 +63,6 @@ npm run deploy
 [https://devcenter.heroku.com/articles/logging](https://devcenter.heroku.com/articles/logging)
 
 ```bash
-heroku logs -n 100
-heroku logs -n 100 --tail
+npx heroku logs -n 100
+npx heroku logs -n 100 --tail
 ```
