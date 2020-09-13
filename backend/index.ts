@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import memegramDB from './db/config';
 
 //middlewares
@@ -13,12 +14,10 @@ import errorsRoutes from './routes/errors.routes';
 import usuarioRoute from './routes/usuario.routes';
 import loginRoute from './routes/login.routes';
 import { User } from './models/User.model';
-import { IUserModel } from 'memegram-commons/models/User.model';
+import { IUserBase } from 'memegram-commons/models/User.model';
 import memeRoute from './routes/meme.routes';
 import commentsRoute from './routes/comment.routes';
 import categoryRoute from './routes/category.routes';
-const cors = require('cors');
-const jsonParser = bodyParser.json();
 
 var corsOptions = {
   origin: '*',
@@ -33,7 +32,7 @@ declare global {
   namespace Express {
     interface Request {
       session?: {
-        user: IUserModel;
+        user: IUserBase;
       };
     }
   }
@@ -54,7 +53,7 @@ interface UserSession {
   app.use(passport.session());
   passport.use(passportM);
 
-  passport.serializeUser((user: IUserModel, done) => {
+  passport.serializeUser((user: IUserBase, done) => {
     done(null, {
       userId: user._id,
     } as UserSession);

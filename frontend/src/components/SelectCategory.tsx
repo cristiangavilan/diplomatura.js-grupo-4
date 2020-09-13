@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { TCategoryListItem } from 'memegram-commons/models/Category.model';
-import { ObjectId } from 'bson';
+import { ICategoryBase } from 'memegram-commons/models/Category.model';
 import { CategorySdk } from '../sdk/CategorySdk';
 
 export const SelectCategory = ({
   onSelect,
   withAllCategory,
 }: {
-  onSelect: (category: TCategoryListItem | undefined) => void;
+  onSelect: (category: ICategoryBase | undefined) => void;
   withAllCategory?: Boolean;
 }) => {
-  const [categories, setCategories] = useState<TCategoryListItem[]>([]);
+  const [categories, setCategories] = useState<ICategoryBase[]>([]);
   const [categoryId, setCategoryId] = useState<string | undefined>();
 
   const fetchCategories = useCallback(async () => {
-    const data: TCategoryListItem[] = await CategorySdk.getCategories();
-    //debugger;
+    const data: ICategoryBase[] = await CategorySdk.getCategories();
     setCategories(data);
   }, []);
 

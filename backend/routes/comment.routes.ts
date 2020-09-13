@@ -4,8 +4,8 @@ import { validateLogin } from '../middlewares/passport';
 
 const router = Router();
 
-router.post('/comment', validateLogin, postComment);
+router.post('/comment/:memeId', validateLogin, postComment);
 
-router.get('/comment', validateLogin, getComment);
+router.get('/comment/:memeId', validateLogin, getComment);
 
 export default router;

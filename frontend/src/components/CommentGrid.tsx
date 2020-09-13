@@ -3,7 +3,7 @@ import { Comment } from './Comment';
 import { AddComment } from './AddComment';
 import { IMemeDetails } from 'memegram-commons/models/Meme.model';
 import { IMemeComment } from 'memegram-commons/models/Comment.model';
-import { CommentsSdk } from '../sdk/CommentsSdk';
+import { CommentSdk } from '../sdk/CommentSdk';
 import { useAppState } from '../state';
 
 interface ICommentGridProps {
@@ -16,13 +16,12 @@ export const CommentGrid = ({ meme }: ICommentGridProps) => {
   const [refresh, setRefresh] = useState(false);
 
   const fetchComments = useCallback(async () => {
-    const data: IMemeComment[] = await CommentsSdk.getComments(meme._id);
+    const data: IMemeComment[] = await CommentSdk.getComments(meme._id);
     setComments(data);
-  }, []);
+  }, [meme]);
 
-  const onSave = async (comment: IMemeComment) => {
-    console.log('Mande a guardar: ', comment);
-    await CommentsSdk.addComment(meme._id, comment);
+  const onSave = async (comment: string) => {
+    await CommentSdk.addComment(meme._id, comment);
     setRefresh(!refresh);
   };
 
@@ -34,7 +33,6 @@ export const CommentGrid = ({ meme }: ICommentGridProps) => {
     <>
       {state.user && (
         <div className="row">
-          {/* <div className="col">Total Comments</div> */}
           <div className="col">
             <AddComment onSaveComment={onSave} />
           </div>

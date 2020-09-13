@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { IComment, IMemeComment } from 'memegram-commons/models/Comment.model';
-import { useAppState } from '../state';
-import { CommentsSdk } from '../sdk/CommentsSdk';
 
 interface IMemeCommentProps {
-  onSaveComment: (comment: IMemeComment) => void | Promise<void>;
+  onSaveComment: (comment: string) => void | Promise<void>;
 }
 
 export const AddComment = ({ onSaveComment }: IMemeCommentProps) => {
-  const state = useAppState();
   const [commentText, setCommentText] = useState('');
 
   const onChangeComment = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -17,14 +13,7 @@ export const AddComment = ({ onSaveComment }: IMemeCommentProps) => {
 
   const onSubmit = () => {
     if (commentText.length > 4) {
-      const newComment: IMemeComment = {
-        comment: commentText,
-        createdAt: new Date(),
-        // @ts-ignore
-        user: state.user,
-      };
-
-      onSaveComment(newComment);
+      onSaveComment(commentText);
       setCommentText('');
     }
   };

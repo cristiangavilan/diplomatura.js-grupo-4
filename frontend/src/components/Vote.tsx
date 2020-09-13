@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface VoteProps {
-  countVoteUp: number;
+  countVoteUp?: number;
   flagVoteUp: boolean;
-  countVoteDown: number;
+  countVoteDown?: number;
   flagVoteDown: boolean;
 }
 
 export const Vote = ({ countVoteUp, countVoteDown, flagVoteUp, flagVoteDown }: VoteProps) => {
-  const [stateVoteUp, setStateVoteUp] = useState<number>(countVoteUp);
-  const [stateVoteDown, setStateVoteDown] = useState<number>(countVoteDown);
+  const [stateVoteUp, setStateVoteUp] = useState<number>(countVoteUp || 0);
+  const [stateVoteDown, setStateVoteDown] = useState<number>(countVoteDown || 0);
   const [stateFlagVoteUp, setStateFlagVoteUp] = useState<boolean>(flagVoteUp);
   const [stateFlagVoteDown, setStateFlagVoteDown] = useState<boolean>(flagVoteDown);
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User.model';
 import { Auth } from '../helpers/jwt';
-import { IUserLogin } from 'memegram-commons/models/User.model';
+import { IApiUserLogin } from 'memegram-commons/models/User.model';
 import { googleVerify } from '../helpers/google-verify';
 
 export const loginUsuario = async (req: Request, res: Response): Promise<Response> => {
@@ -20,21 +20,28 @@ export const loginUsuario = async (req: Request, res: Response): Promise<Respons
     await user.save();
 
     return res.json({
+      ok: true,
       user,
       token: Auth.generarToken(user),
-    } as IUserLogin);
+    } as IApiUserLogin);
   }
+
   return res.status(400).json({
     msg: 'El password ingresado es incorrecto',
   });
 };
 
 export const googleSingIn = async (req: Request, res: Response) => {
-  let gooleToken = req.body.token;
+  const gooleToken = req.body.token;
 
   try {
-    const { email, name, picture } = await googleVerify(gooleToken);
+    const googleResponse = await googleVerify(gooleToken);
 
+    if (!googleResponse) {
+      return res.sendStatus(403);
+    }
+
+    const { email, name, picture } = googleResponse;
     const userDB = await User.findOne({ email });
     let user;
 
@@ -61,11 +68,8 @@ export const googleSingIn = async (req: Request, res: Response) => {
       msg: 'Google SingIn',
       token: Auth.generarToken(user),
       user,
-    });
+    } as IApiUserLogin);
   } catch (error) {
-    res.status(401).json({
-      ok: false,
-      msg: 'Token invalido',
-    });
+    res.sendStatus(401);
   }
 };

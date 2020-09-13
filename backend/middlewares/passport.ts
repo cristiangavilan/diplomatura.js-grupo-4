@@ -4,7 +4,7 @@ import passport from 'passport';
 const JWTKEY = process.env.JWTKEY;
 
 const opts: StrategyOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), ///en postman agregar en el header AuthHeader y en el Setting agregar el Bearer
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // en postman agregar en el header AuthHeader y en el Setting agregar el Bearer
   secretOrKey: `${JWTKEY}`,
 };
 

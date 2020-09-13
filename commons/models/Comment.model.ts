@@ -1,15 +1,13 @@
-import { IBase, TId } from './Base.model';
-import { IUser } from './User.model';
+import { IBase, IApiListBaseModel } from './Base.model';
+import { IUserBase } from './User.model';
 
-interface _IComment extends IBase {
+export interface IMemeCommentBase<TUser> extends IBase {
+  user: TUser;
   comment: string;
-  createdAt: Date;
 }
 
-export interface IComment extends _IComment {
-  user: TId;
-}
+export interface IMemeComment extends IMemeCommentBase<IUserBase> {}
 
-export interface IMemeComment extends _IComment {
-  user: IUser;
+export interface IApiMemeComments extends IApiListBaseModel {
+  comments: IMemeComment[];
 }

@@ -3,7 +3,6 @@ import UploadCloudFile from '../components/UploadCloudFile';
 import { useHistory } from 'react-router-dom';
 import { IMeme } from 'memegram-commons/models/Meme.model';
 import { useAppState } from '../state';
-import { TId } from 'memegram-commons/models/Base.model';
 import { SelectCategory } from './SelectCategory';
 
 type TInputMeme = {
@@ -17,7 +16,7 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   const [showCategoryAlert, setShowCategoryAlert] = useState<boolean>(false);
   const [urlImage, setUrlImage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<TId | undefined>();
+  const [categoryId, setCategoryId] = useState<string | undefined>();
   const [categoryName, setCategoryName] = useState<string>('');
   const [enableCompleteData, setEnableCompleteData] = useState<boolean>(false); //hasta que no cargue la imagen no se deberia habilitar el boton guardar, label titulo, select categoria.
   const [askCancel, setAskCancel] = useState<boolean>(false);

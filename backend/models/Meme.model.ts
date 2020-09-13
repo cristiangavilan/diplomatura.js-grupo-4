@@ -1,27 +1,67 @@
 import { model, Schema, Document } from 'mongoose';
+import { IMemeBase } from 'memegram-commons/models/Meme.model';
+import { MemeCommentSchemma } from './Comment.model';
+import { IMemeCommentBase } from 'memegram-commons/models/Comment.model';
 
-export interface IMemeModel extends Document {
-  image: string;
-  filename: string;
-  title: string;
-  voteUp: Number;
-  voteDown: Number;
-  category: string;
-  comments: string;
-  owner: string;
+export interface IMemeModel
+  extends IMemeBase<
+      Schema.Types.ObjectId,
+      Schema.Types.ObjectId,
+      Schema.Types.ObjectId[],
+      IMemeCommentBase<Schema.Types.ObjectId>[]
+    >,
+    Document {
+  _id: Schema.Types.ObjectId;
 }
 
-export const MemeSchema = new Schema({
-  image: { type: String, required: true },
-  filename: { type: String, required: true },
-  title: { type: String, required: true },
-  voteUp: [{ type: Number }],
-  voteDown: [{ type: Number }],
-  createdAt: { type: Date, default: Date.now, required: true },
-  updatedAt: { type: Date, default: Date.now, required: true },
-  category: { type: String, required: true, ref: 'Category' },
-  comments: [{ type: String, required: true, ref: 'Comment' }],
-  owner: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-});
+export const MemeSchema = new Schema<IMemeModel>(
+  {
+    image: {
+      type: String,
+      required: true,
+    },
+    filename: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    voteUp: [
+      {
+        type: Schema.Types.ObjectId,
+      },
+    ],
+    voteDown: [
+      {
+        type: Schema.Types.ObjectId,
+      },
+    ],
+    category: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Category',
+    },
+    comments: [
+      {
+        type: MemeCommentSchemma,
+        required: true,
+      },
+    ],
+    owner: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+    usePushEach: true,
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
 export default model<IMemeModel>('Meme', MemeSchema);

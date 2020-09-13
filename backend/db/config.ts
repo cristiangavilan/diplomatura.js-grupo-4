@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 
-const  URIS  = process.env.DBCONEX;
-
+const URIS = process.env.DBCONEX;
 
 const memegramDB = async () => {
   try {
-    await mongoose.connect (`${URIS}`, {
+    await mongoose.connect(`${URIS}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

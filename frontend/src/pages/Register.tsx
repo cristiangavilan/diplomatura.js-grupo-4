@@ -4,17 +4,6 @@ import { RegisterSdk } from '../sdk/UserSdk';
 import { useHistory } from 'react-router-dom';
 import UploadCloudFile from '../components/UploadCloudFile';
 
-/* 
-{
-userName: 'pepe22',
-email:'pepe22@gmail.com',
-password:'123456',
-passwordR:'123456',
-
-}
-
-*/
-
 export const Register = () => {
   const history = useHistory();
 

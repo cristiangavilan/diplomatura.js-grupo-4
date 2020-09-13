@@ -1,85 +1,29 @@
-import { IMeme, IMemeDetails, IMemeListItem } from 'memegram-commons/models/Meme.model';
-import { dbMemes, dbCategories, dbUsers } from '../data/data';
-import { TId } from 'memegram-commons/models/Base.model';
-import { ObjectId } from 'bson';
-import { ICategory } from 'memegram-commons/models/Category.model';
-import { IUser } from 'memegram-commons/models/User.model';
-import { IComment } from 'memegram-commons/models/Comment.model';
-
-import { axiosInstance } from '../utils/axios.util';
+import { IMemeDetails, IApiMemes, IMeme, IApiMemeDetails } from 'memegram-commons/models/Meme.model';
+import { request } from '../utils/axios.util';
 
 export const MemeSdk = {
-  async getMemes(skip: number, limit: number, categoryId?: TId): Promise<IMemeListItem[]> {
-    let memes: IMeme[] = [];
+  get endpoint() {
+    return '/meme';
+  },
 
-    if (categoryId) {
-      console.log('categoryId:', categoryId);
-      memes = dbMemes.filter((m) => m.category.equals(categoryId));
-      console.log('memes:', memes);
-    } else {
-      memes = dbMemes;
-    }
-
-    let memesFiltrados: IMeme[] = [];
-    memes.forEach((meme: IMeme, index: Number) => {
-      if (index >= skip && index < skip + limit) {
-        memesFiltrados.push(meme);
-      }
+  async getMemes(skip: number = 0, limit: number = 30, categoryId?: string): Promise<IApiMemes> {
+    const respuesta = await request().get<IApiMemes>(MemeSdk.endpoint, {
+      params: {
+        skip,
+        limit,
+        categoryId,
+      },
     });
 
-    // Clona objeto
-    const c = memesFiltrados.map((m) => ({ ...m })) as any;
-
-    c.forEach((m: any) => {
-      m.category = (dbCategories.find((c) => c._id?.equals(m.category)) as unknown) as ICategory;
-      m.owner = (dbUsers.find((u) => u._id?.equals(m.owner)) as unknown) as IUser;
-      m.comments = m.comments?.length || 0;
-      m.voteUp = m.voteUp?.length || 0;
-      m.voteDown = m.voteDown?.length || 0;
-      m.voted = 'up';
-    });
-
-    return c;
+    return respuesta.data;
   },
 
   async addMeme(meme: IMeme): Promise<void> {
-    //await axiosInstance.post('/meme', { meme }); //funciona!..probé sin validación en meme.routes.ts router.post('/meme', postMeme);
-
-    meme._id = new ObjectId();
-    dbMemes.push(meme);
+    await request().post('/meme', { meme });
   },
 
-  async getMemeById(id: string): Promise<IMemeDetails | undefined> {
-    const meme: any = Object.assign(
-      {},
-      dbMemes.find((m) => `${m._id}` === id)
-    );
-
-    meme.category = dbCategories.find((c) => c._id?.equals(meme.category));
-    meme.owner = dbUsers.find((u) => u._id?.equals(meme.owner));
-    meme.voteUp = meme.voteUp?.length || 0;
-    meme.voteDown = meme.voteDown?.length || 1;
-    meme.voted = 'down';
-    meme.comments = meme.comments?.map((c: IComment) => {
-      return {
-        ...c,
-        user: dbUsers.find((u) => u._id?.equals(c.user)),
-      };
-    });
-    return meme as IMemeDetails;
-  },
-};
-
-export const getMemeAxio = {
-  async getMeme(): Promise<IMemeListItem> {
-    const respuesta = await axiosInstance.get<IMemeListItem>('/meme');
-    return respuesta.data;
-  },
-};
-
-export const postMemeAxio = {
-  async addMeme(meme: IMeme): Promise<IMeme> {
-    const respuesta = await axiosInstance.post<IMeme>('/meme', { meme });
-    return respuesta.data;
+  async getMemeById(memeId: string): Promise<IMemeDetails> {
+    const respuesta = await request().get<IApiMemeDetails>(`${MemeSdk.endpoint}/${memeId}`);
+    return respuesta.data.meme;
   },
 };

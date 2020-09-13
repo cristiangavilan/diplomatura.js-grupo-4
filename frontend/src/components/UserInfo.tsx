@@ -1,7 +1,7 @@
 import React from 'react';
-import { IUser } from 'memegram-commons/models/User.model';
+import { IUserBase } from 'memegram-commons/models/User.model';
 
-export const UserInfo = ({ user }: { user: IUser }) => {
+export const UserInfo = ({ user }: { user: IUserBase }) => {
   return (
     <div>
       <h6>

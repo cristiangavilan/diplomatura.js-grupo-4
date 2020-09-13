@@ -1,7 +1,9 @@
-import { IBase } from './Base.model';
+import { IBase, IApiListBaseModel } from './Base.model';
 
-export interface ICategory extends IBase {
+export interface ICategoryBase extends IBase {
   name: string;
 }
 
-export type TCategoryListItem = ICategory & { _id: string };
+export interface IApiCategoryList extends IApiListBaseModel {
+  category: ICategoryBase[];
+}

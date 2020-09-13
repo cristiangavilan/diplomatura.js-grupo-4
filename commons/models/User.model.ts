@@ -1,23 +1,19 @@
-import { IBase } from './Base.model';
-import { Document } from 'mongoose';
+import { IBase, IApiBaseModel } from './Base.model';
 
-interface _IUser {
+export interface IUserBase extends IBase {
   username: string;
   email: string;
   img?: string;
   signupDate?: string;
   lastLogin?: Number;
+  google?: string;
 }
 
-export interface IUser extends _IUser, IBase {}
-
-export interface IUserModel extends _IUser, Document {
-  password: string;
-  google: string;
-  comparePassword: (password: string) => Promise<Boolean>;
+export interface IUserRegister extends IApiBaseModel {
+  user: IUserBase;
 }
 
-export interface IUserLogin {
-  user: IUser;
+export interface IApiUserLogin extends IApiBaseModel {
+  user: IUserBase;
   token: string;
 }

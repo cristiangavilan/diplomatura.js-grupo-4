@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IUserModel } from 'memegram-commons/models/User.model';
+import { IUserBase } from 'memegram-commons/models/User.model';
 const JWTKEY = process.env.JWTKEY;
 
 export class Auth {
@@ -19,12 +19,12 @@ export class Auth {
 
   // Crea el token con los datos de sesión
 
-  static generarToken(user: IUserModel) {
+  static generarToken(user: IUserBase) {
     return jwt.sign(
       {
-        id: user.id,
-        //username: user.username,
-        // email: user.email,
+        id: user._id,
+        username: user.username,
+        email: user.email,
       },
       `${JWTKEY}`,
       {
