@@ -16,4 +16,5 @@ export interface IUserRegister extends IApiBaseModel {
 export interface IApiUserLogin extends IApiBaseModel {
   user: IUserBase;
   token: string;
+  msg?: string;
 }
