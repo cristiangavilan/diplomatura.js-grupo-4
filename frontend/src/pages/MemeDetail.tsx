@@ -33,9 +33,7 @@ export const MemeDetail = () => {
                 <img src={meme.filename} alt="Futbol" width="100%" />
               </div>
             </div>
-            <div className="row">
-              <div className="col text-muted m-1">{moment(meme.createdAt).fromNow()}</div>
-            </div>
+
             {state.user && (
               <div className="row">
                 <div className="col text-pink m-1">
@@ -49,6 +47,25 @@ export const MemeDetail = () => {
                 </div>
               </div>
             )}
+            {!state.user && (
+              <div className="row mt-3">
+                <div className="col text-light">
+                  <span className="text-pink m-1">
+                    {meme.voteUp} <i className="fas fa-thumbs-up"></i>
+                  </span>
+                  <span className="text-pink m-1">
+                    {meme.voteDown} <i className="fas fa-thumbs-down"></i>
+                  </span>
+                </div>
+                <div className="col text-right">
+                  <p>{meme.category?.name}</p>
+                </div>
+              </div>
+            )}
+            <div className="row">
+              <div className="col">{meme.comments} Comentarios</div>
+              <div className="col text-muted text-right">{moment(meme.createdAt).fromNow()}</div>
+            </div>
           </div>
 
           <div className="card-footer">
