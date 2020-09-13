@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User.model';
-import { IUserRegister } from 'memegram-commons/models/User.model';
+import { IUserRegister, IApiUserLogin } from 'memegram-commons/models/User.model';
+import { Auth } from '../helpers/jwt';
 
 export const crearUsuario = async (req: Request, res: Response) => {
   if (!req.body) {
@@ -15,6 +16,24 @@ export const crearUsuario = async (req: Request, res: Response) => {
     msg: 'Usuario Creado',
     user,
   } as IUserRegister);
+};
+
+export const getUsuario = async (req: Request, res: Response) => {
+  if (!req.session) {
+    return res.sendStatus(404);
+  }
+
+  const user = await User.findById(req.session.user._id);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  return res.json({
+    ok: true,
+    user,
+    token: Auth.generarToken(user),
+  } as IApiUserLogin);
 };
 
 export const updateUsuarioByID = async (req: Request, res: Response) => {

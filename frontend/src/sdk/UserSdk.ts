@@ -6,6 +6,11 @@ export const UserSdk = {
     const respuesta = await request().post<IApiUserLogin>('/login', { email, password });
     return respuesta.data;
   },
+
+  async currentUser(): Promise<IApiUserLogin> {
+    const respuesta = await request().get<IApiUserLogin>('/user');
+    return respuesta.data;
+  },
 };
 
 export const RegisterSdk = {

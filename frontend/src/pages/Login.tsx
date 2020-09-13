@@ -5,15 +5,19 @@ import { NavLink } from 'react-router-dom';
 import { setLocalJwt } from '../utils/jwt.util';
 import GoogleLogin from 'react-google-login';
 import { UserSdk, GoogleSdk } from '../sdk/UserSdk';
+import * as ls from 'local-storage';
 
 export const Login = () => {
   const responseGoogle = async (response: any) => {
     const { tokenId } = response;
     const data = await GoogleSdk.login(tokenId);
+
     state.produce((currentState) => {
       currentState.loggedIn = true;
       currentState.user = data.user;
+      ls.set('user-session', data.user);
     });
+
     setLocalJwt(data.token);
     history.push('/');
   };
@@ -36,9 +40,11 @@ export const Login = () => {
   const onLogin = useCallback(
     async (mailUser, passUser) => {
       const data = await UserSdk.login(mailUser, passUser);
+
       state.produce((currentState) => {
         currentState.loggedIn = true;
         currentState.user = data.user;
+        ls.set('user-session', data.user);
       });
 
       setLocalJwt(data.token);
