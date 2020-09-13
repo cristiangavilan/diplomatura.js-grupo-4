@@ -73,6 +73,7 @@
   "scripts": {
     "start": "env-cmd -f ../commons/.env react-scripts start",
     "build": "npm run clean && env-cmd -f ../commons/.env react-scripts build",
+    "deploy": "react-scripts build",
     "test": "env-cmd -f ../commons/.env react-scripts test",
     "eject": "env-cmd -f ../commons/.env react-scripts eject",
     "clean": "rimraf build"

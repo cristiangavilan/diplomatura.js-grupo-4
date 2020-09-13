@@ -26,3 +26,29 @@ npm start
 ```bash
 npm run build
 ```
+
+## Deployment
+
+URL: [https://memegramfw.herokuapp.com](https://memegramfw.herokuapp.com)
+
+### Init
+
+```bash
+npm run deploy:init
+```
+
+### Config
+
+Se deben configrurar todas las variables en [`.env`](commons/.env) en _Heroku_.
+
+[https://devcenter.heroku.com/articles/config-vars](https://devcenter.heroku.com/articles/config-vars)
+
+```bash
+heroku config:set VAR_NAME=var-value
+```
+
+### Deploy
+
+```bash
+npm run deploy
+```
