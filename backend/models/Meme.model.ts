@@ -1,17 +1,12 @@
-import { model, Schema, Document } from 'mongoose';
+import Mongoose, { model, Schema, Document, Types } from 'mongoose';
 import { IMemeBase } from 'memegram-commons/models/Meme.model';
 import { MemeCommentSchemma } from './Comment.model';
 import { IMemeCommentBase } from 'memegram-commons/models/Comment.model';
 
 export interface IMemeModel
-  extends IMemeBase<
-      Schema.Types.ObjectId,
-      Schema.Types.ObjectId,
-      Schema.Types.ObjectId[],
-      IMemeCommentBase<Schema.Types.ObjectId>[]
-    >,
+  extends IMemeBase<Types.ObjectId, Types.ObjectId, Types.ObjectId[], IMemeCommentBase<Types.ObjectId>[]>,
     Document {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
 }
 
 export const MemeSchema = new Schema<IMemeModel>(
@@ -30,27 +25,22 @@ export const MemeSchema = new Schema<IMemeModel>(
     },
     voteUp: [
       {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
       },
     ],
     voteDown: [
       {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
       },
     ],
     category: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       required: true,
       ref: 'Category',
     },
-    comments: [
-      {
-        type: MemeCommentSchemma,
-        required: true,
-      },
-    ],
+    comments: [MemeCommentSchemma],
     owner: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       required: true,
       ref: 'User',
     },

@@ -26,4 +26,12 @@ export const MemeSdk = {
     const respuesta = await request().get<IApiMemeDetails>(`${MemeSdk.endpoint}/${memeId}`);
     return respuesta.data.meme;
   },
+
+  async voteUpMeme(memeId: string): Promise<void> {
+    await request().get<IApiMemeDetails>(`${MemeSdk.endpoint}/${memeId}/${'voteUp'}`);
+  },
+
+  async voteDownMeme(memeId: string): Promise<void> {
+    await request().get<IApiMemeDetails>(`${MemeSdk.endpoint}/${memeId}/${'voteDown'}`);
+  },
 };

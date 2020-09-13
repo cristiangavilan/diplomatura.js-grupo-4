@@ -1,18 +1,18 @@
-import { Schema, Document } from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
 import { IMemeCommentBase } from 'memegram-commons/models/Comment.model';
 
-export interface IMemeCommentModel extends IMemeCommentBase<Schema.Types.ObjectId>, Document {
-  _id: Schema.Types.ObjectId;
+export interface IMemeCommentModel extends IMemeCommentBase<Types.ObjectId>, Document {
+  _id: Types.ObjectId;
 }
 
 export const MemeCommentSchemma = new Schema<IMemeCommentModel>(
   {
     comment: {
       type: String,
-      lowercase: true,
+      required: true,
     },
     user: {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       required: true,
       ref: 'User',
     },

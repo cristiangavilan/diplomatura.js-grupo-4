@@ -1,46 +1,40 @@
 import { Request, Response } from 'express';
 import { IApiMemeComments, IMemeComment } from 'memegram-commons/models/Comment.model';
 import Meme from '../models/Meme.model';
+import { Auth } from '../helpers/jwt';
+import { Types } from 'mongoose';
 
 export const postComment = async (req: Request, res: Response) => {
+  const { memeId } = req.params;
   const { comment } = req.body;
+  const sessionUser = Auth.decodeToken(req);
 
-  if (!comment) {
-    return res.status(400).json({ msg: 'Debes completar el formulario' });
-  }
+  if (sessionUser) {
+    const userId = new Types.ObjectId(sessionUser.id);
+    const newComment = { comment, user: userId };
 
-  const meme = await Meme.findById(req.params.memeId);
-
-  if (!meme) {
-    return res.sendStatus(404);
-  }
-
-  await Meme.updateOne(
-    {
-      _id: meme._id,
-    },
-    {
-      $push: {
-        comments: comment,
+    const data = await Meme.findByIdAndUpdate(
+      memeId,
+      {
+        $push: {
+          comments: newComment,
+        },
       },
-    }
-  );
+      { new: true }
+    );
 
-  return res.sendStatus(200);
+    res.json(data);
+  }
 };
 
 export const getComment = async (req: Request, res: Response) => {
-  const memeComments = await Meme.findById(req.params.memeId)
-    .populate('comments.user')
-    .select(['comments'])
-    .sort({ createdAt: 'descending' });
-
+  const memeComments = await Meme.findById(req.params.memeId).populate('comments.user').select(['comments']);
   if (!memeComments) {
     return res.sendStatus(404);
   }
 
   const comments = ((memeComments.comments || []) as unknown) as IMemeComment[];
-  const total = comments.length;
+  const total = comments?.length || 0;
 
   res.json({
     ok: true,

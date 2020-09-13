@@ -1,7 +1,31 @@
 import { Request, Response } from 'express';
 import Meme from '../models/Meme.model';
 import { IApiMemes, IMemeListItem, IApiMemeDetails, IMemeDetails } from 'memegram-commons/models/Meme.model';
-import Mongoose, { Schema, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import { Auth } from '../helpers/jwt';
+
+const isVoteQuery = (req: Request): any => {
+  const SessionUser = Auth.decodeToken(req);
+  let isVoted: any = 'no';
+  if (SessionUser) {
+    const userId = new Types.ObjectId(SessionUser.id);
+    isVoted = {
+      $cond: {
+        if: { $and: [{ $isArray: '$voteUp' }, { $in: [userId, '$voteUp'] }] },
+        then: 'up',
+        else: {
+          $cond: {
+            if: { $and: [{ $isArray: '$voteDown' }, { $in: [userId, '$voteDown'] }] },
+            then: 'down',
+            else: 'no',
+          },
+        },
+      },
+    };
+  }
+
+  return isVoted;
+};
 
 export const getMemes = async (req: Request, res: Response) => {
   const skip = Number(req.query.skip) || 0; //variable que espera un valor para paginar
@@ -10,7 +34,7 @@ export const getMemes = async (req: Request, res: Response) => {
   const categoryId = req.query.categoryId;
 
   if (categoryId) {
-    match.category = { $eq: new Mongoose.Types.ObjectId(categoryId.toString()) };
+    match.category = { $eq: new Types.ObjectId(categoryId.toString()) };
   }
 
   const memes = await Meme.aggregate([
@@ -49,7 +73,7 @@ export const getMemes = async (req: Request, res: Response) => {
         filename: 1,
         image: 1,
         owner: 1,
-        voted: 'no',
+        voted: isVoteQuery(req),
         voteDown: {
           $cond: {
             if: { $isArray: '$voteDown' },
@@ -107,11 +131,13 @@ export const postMeme = async (req: Request, res: Response) => {
 
 export const getMeme = async (req: Request, res: Response) => {
   const memeId = req.params.memeId;
+  const SessionUser = Auth.decodeToken(req);
 
   const match: any = {};
   if (memeId) {
-    match._id = { $eq: new Mongoose.Types.ObjectId(memeId.toString()) };
+    match._id = { $eq: new Types.ObjectId(memeId.toString()) };
   }
+
   const meme = await Meme.aggregate([
     { $match: match },
     // Populo category
@@ -145,7 +171,7 @@ export const getMeme = async (req: Request, res: Response) => {
         filename: 1,
         image: 1,
         owner: 1,
-        voted: 'no',
+        voted: isVoteQuery(req),
         voteDown: {
           $cond: {
             if: { $isArray: '$voteDown' },
@@ -183,4 +209,101 @@ export const getMeme = async (req: Request, res: Response) => {
     ok: true,
     meme: m,
   } as IApiMemeDetails);
+};
+
+export const voteUpMeme = async (req: Request, res: Response) => {
+  const memeId = req.params.memeId;
+  const sessionUser = Auth.decodeToken(req);
+  if (sessionUser) {
+    const userId = new Types.ObjectId(sessionUser.id);
+
+    const meme = await Meme.findById(memeId);
+    if (!meme) {
+      return res.sendStatus(404);
+    }
+
+    const positiveVote = meme.voteUp?.includes(userId);
+    const negativeVote = meme.voteDown?.includes(userId);
+
+    if (positiveVote) {
+      const eliminado = await Meme.findByIdAndUpdate(memeId, {
+        $pull: {
+          voteUp: userId,
+        },
+      });
+    } else {
+      const data = await Meme.findByIdAndUpdate(
+        memeId,
+        {
+          $addToSet: {
+            voteUp: userId,
+          },
+        },
+        { new: true }
+      );
+      if (negativeVote) {
+        const eliminado = await Meme.findByIdAndUpdate(memeId, {
+          $pull: {
+            voteDown: userId,
+          },
+        });
+      }
+    }
+
+    res.json({
+      ok: true,
+    });
+  } else {
+    res.sendStatus(403);
+  }
+};
+
+export const voteDownMeme = async (req: Request, res: Response) => {
+  const memeId = req.params.memeId;
+  const sessionUser = Auth.decodeToken(req);
+  if (sessionUser) {
+    const userId = new Types.ObjectId(sessionUser.id);
+
+    const meme = await Meme.findById(memeId);
+    if (!meme) {
+      return res.sendStatus(404);
+    }
+
+    const negativeVote = meme.voteDown?.includes(userId);
+    const positiveVote = meme.voteUp?.includes(userId);
+
+    console.log('negativeVote', negativeVote);
+    console.log('positiveVote', positiveVote);
+
+    if (negativeVote) {
+      await Meme.findByIdAndUpdate(memeId, {
+        $pull: {
+          voteDown: userId,
+        },
+      });
+    } else {
+      await Meme.findByIdAndUpdate(
+        memeId,
+        {
+          $addToSet: {
+            voteDown: userId,
+          },
+        },
+        { new: true }
+      );
+      if (positiveVote) {
+        await Meme.findByIdAndUpdate(memeId, {
+          $pull: {
+            voteUp: userId,
+          },
+        });
+      }
+    }
+
+    res.json({
+      ok: true,
+    });
+  } else {
+    res.sendStatus(403);
+  }
 };

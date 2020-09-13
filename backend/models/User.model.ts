@@ -1,10 +1,10 @@
-import { model, Schema, Document, Model } from 'mongoose';
+import { model, Schema, Document, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 import uniqueValidator from 'mongoose-unique-validator';
 import { IUserBase } from 'memegram-commons/models/User.model';
 
 export interface IUserModel extends IUserBase, Document {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
   password: string;
   google: string;
   comparePassword: (password: string) => Promise<Boolean>;

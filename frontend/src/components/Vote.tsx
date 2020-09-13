@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { MemeSdk } from '../sdk/MemeSdk';
 
 interface VoteProps {
   countVoteUp?: number;
   flagVoteUp: boolean;
   countVoteDown?: number;
   flagVoteDown: boolean;
+  memeId: string;
 }
 
-export const Vote = ({ countVoteUp, countVoteDown, flagVoteUp, flagVoteDown }: VoteProps) => {
+export const Vote = ({ countVoteUp, countVoteDown, flagVoteUp, flagVoteDown, memeId }: VoteProps) => {
   const [stateVoteUp, setStateVoteUp] = useState<number>(countVoteUp || 0);
   const [stateVoteDown, setStateVoteDown] = useState<number>(countVoteDown || 0);
   const [stateFlagVoteUp, setStateFlagVoteUp] = useState<boolean>(flagVoteUp);
@@ -25,6 +27,7 @@ export const Vote = ({ countVoteUp, countVoteDown, flagVoteUp, flagVoteDown }: V
       setStateVoteUp(stateVoteUp + 1);
       setStateFlagVoteUp(true);
     }
+    MemeSdk.voteUpMeme(memeId);
   };
 
   const handleVoteDown = () => {
@@ -39,6 +42,7 @@ export const Vote = ({ countVoteUp, countVoteDown, flagVoteUp, flagVoteDown }: V
       setStateVoteDown(stateVoteDown + 1);
       setStateFlagVoteDown(true);
     }
+    MemeSdk.voteDownMeme(memeId);
   };
 
   return (

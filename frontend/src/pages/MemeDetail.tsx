@@ -44,6 +44,7 @@ export const MemeDetail = () => {
                     countVoteDown={meme.voteDown}
                     flagVoteUp={meme.voted === 'up'}
                     flagVoteDown={meme.voted === 'down'}
+                    memeId={meme._id}
                   />
                 </div>
               </div>

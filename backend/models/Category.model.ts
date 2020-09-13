@@ -1,8 +1,8 @@
-import { model, Schema, Document } from 'mongoose';
+import { model, Schema, Document, Types } from 'mongoose';
 import { ICategoryBase } from 'memegram-commons/models/Category.model';
 
 export interface ICategoryModel extends ICategoryBase, Document {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
 }
 
 export const CategorySchema = new Schema<ICategoryModel>(

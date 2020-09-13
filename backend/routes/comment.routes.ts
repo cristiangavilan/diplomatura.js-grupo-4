@@ -6,6 +6,6 @@ const router = Router();
 
 router.post('/comment/:memeId', validateLogin, postComment);
 
-router.get('/comment/:memeId', validateLogin, getComment);
+router.get('/comment/:memeId', getComment);
 
 export default router;
