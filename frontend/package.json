@@ -69,7 +69,8 @@
     "url": "https://github.com/reduardo7/diplomatura.js-grupo-4/issues"
   },
   "scripts": {
-    "start": "env-cmd -f ../commons/.env react-scripts start",
+    "start": "npm run dev",
+    "dev": "env-cmd -f ../commons/.env react-scripts start",
     "build": "npm run clean && env-cmd -f ../commons/.env react-scripts build",
     "deploy": "react-scripts build",
     "test": "env-cmd -f ../commons/.env react-scripts test",
