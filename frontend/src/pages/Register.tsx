@@ -73,7 +73,7 @@ export const Register = () => {
   };
 
   return (
-    <div className="form-usuario">
+    <div className="form-usuario form-group">
       <div className="contenedor-form sombra-dark">
         <h1>Obtener una cuenta</h1>
 
@@ -134,7 +134,7 @@ export const Register = () => {
         )}
         <div className="campo-form">
           <button
-            className="btn btn-lg btn-pink"
+            className="btn btn-lg btn-pink btn-block text-center"
             onClick={() => {
               onRegister(mailUser, passUser, nameUser, repeatPass, urlImage);
             }}
@@ -142,7 +142,7 @@ export const Register = () => {
             Registro
           </button>
         </div>
-        <NavLink exact to="/">
+        <NavLink exact to="/" className="enlace-cuenta text-center">
           Volver a Iniciar Sesión
         </NavLink>
       </div>
