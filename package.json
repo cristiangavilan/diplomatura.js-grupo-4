@@ -5,7 +5,8 @@
     "start": "cd backend && npm serve",
     "dev": "concurrently --kill-others -n backend,frontend \"cd backend && npm start\" \"cd frontend && npm start\"",
     "postinstall": "cd commons && npm install && cd ../backend && npm install && cd ../frontend && npm install",
-    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "build:all": "cd backend && npm run build && cd ../frontend && npm run build",
+    "build": "cd ../frontend && npm run build",
     "serve": "cd backend && npm run serve",
     "deploy:init": "heroku login && heroku git:remote -a memegramfw",
     "deploy": "git push heroku master"
