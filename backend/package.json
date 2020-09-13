@@ -68,6 +68,6 @@
     "start": "env-cmd -f ../commons/.env ts-node-dev index.ts",
     "serve": "env-cmd -f ../commons/.env ts-node index.ts",
     "build": "npm run clean && tsc",
-    "clean": "rimraf build"
+    "clean": "rimraf ../backend-build"
   }
 }
