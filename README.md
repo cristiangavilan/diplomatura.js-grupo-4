@@ -44,7 +44,12 @@ Se deben configrurar todas las variables en [`.env`](commons/.env) en _Heroku_.
 [https://devcenter.heroku.com/articles/config-vars](https://devcenter.heroku.com/articles/config-vars)
 
 ```bash
+# Set
 heroku config:set VAR_NAME=var-value
+
+# View config
+heroku config
+heroku config:get VAR_NAME
 ```
 
 ### Deploy
