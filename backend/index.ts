@@ -24,7 +24,8 @@ var corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-const { API_ENDPOINT, SERVER_PORT } = process.env;
+const { API_ENDPOINT, SERVER_PORT, PORT } = process.env;
+const PUBLIC_PORT = SERVER_PORT || PORT || '3000';
 
 const baseApi = API_ENDPOINT || '/api';
 
@@ -73,8 +74,8 @@ interface UserSession {
   app.use(reactRoutes);
   app.use(errorsRoutes);
 
-  app.listen(parseInt(SERVER_PORT || '3000'), () => {
-    console.info(`Server listening at \x1b[32m${SERVER_PORT}\x1b[0m`);
+  app.listen(parseInt(PUBLIC_PORT), () => {
+    console.info(`Server listening at \x1b[32m${PUBLIC_PORT}\x1b[0m`);
   });
 })().catch((err) => {
   console.error(err);
