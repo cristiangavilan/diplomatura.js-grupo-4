@@ -27,6 +27,7 @@
     "@types/passport-jwt": "^3.0.3",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.57",
+    "tsc": "^1.20150623.0",
     "typescript": "^3.9.7"
   },
   "contributors": [
