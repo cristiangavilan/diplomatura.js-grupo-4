@@ -18,7 +18,6 @@ export const MemeDetail = () => {
   }, [id]);
 
   if (meme) {
-    console.log(meme);
     return (
       <div className="container">
         <div className="card border-pink m-2">

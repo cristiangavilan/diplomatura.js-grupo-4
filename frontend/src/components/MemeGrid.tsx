@@ -10,37 +10,48 @@ const INITIAL_SKIP = 0;
 const INITIAL_TOTAL = Number.POSITIVE_INFINITY;
 const INITIAL_LIMIT = 2;
 
+let seek = INITIAL_SKIP;
+let working = false;
+
 export const MemeGrid = ({ category }: { category?: ICategoryBase }) => {
   const [memes, setMemes] = useState<IMemeListItem[]>([]);
-  const [skip, setSkip] = useState<number>(0);
-  const [isRequesting, setIsRequesting] = useState<boolean>(false);
   const [totalMemes, setTotalMemes] = useState<number>(INITIAL_TOTAL);
 
-  const moreMemes = async () => {
-    setSkip(skip + INITIAL_LIMIT);
+  const getMemes = (skip: number, limit: number, categoryId: any) => {
+    MemeSdk.getMemes(skip, limit, categoryId).then((m) => {
+      setTotalMemes(m.total);
+      setMemes([...m.memes]);
+    });
+  };
 
-    if (!isRequesting) {
-      setIsRequesting(true);
-      try {
-        const m = await MemeSdk.getMemes(skip, INITIAL_LIMIT, category?._id);
-        setTotalMemes(m.total);
-        setMemes([...memes, ...m.memes]);
-      } catch (err) {
-        console.error(err);
-        setTotalMemes(0);
-      } finally {
-        setIsRequesting(false);
-      }
-    }
+  const getMoreMemes = (skip: number, limit: number, categoryId: any) => {
+    MemeSdk.getMemes(skip, limit, categoryId).then((m) => {
+      setTotalMemes(m.total);
+      setMemes([...memes, ...m.memes]);
+    });
   };
 
   useEffect(() => {
-    setMemes([]);
-    setSkip(INITIAL_SKIP);
-    setTotalMemes(INITIAL_TOTAL);
-    moreMemes();
-    // @ts-ignore WARN! Not include moreMemes
+    if (!working) {
+      working = true;
+
+      seek = INITIAL_SKIP;
+      getMemes(seek, INITIAL_LIMIT, category?._id);
+
+      working = false;
+    }
   }, [category]);
+
+  const moreMemes = () => {
+    if (!working) {
+      working = true;
+
+      seek += INITIAL_LIMIT;
+      getMoreMemes(seek, INITIAL_LIMIT, category?._id);
+
+      working = false;
+    }
+  };
 
   if (memes.length > 0) {
     return (
@@ -49,7 +60,7 @@ export const MemeGrid = ({ category }: { category?: ICategoryBase }) => {
           <InfiniteScroll
             dataLength={memes.length}
             next={moreMemes}
-            hasMore={totalMemes > skip}
+            hasMore={totalMemes > memes.length}
             loader={<img className="center" src={loading} alt="user" width="60" />}
           >
             {memes.map((meme, index) => {
@@ -61,10 +72,14 @@ export const MemeGrid = ({ category }: { category?: ICategoryBase }) => {
     );
   } else {
     return (
-      <span>
-        No hay memes de la categoría:
-        {category?.name}
-      </span>
+      <div className="row">
+        <div className="col">
+          <span>
+            No hay memes de la categoría:
+            {category?.name}
+          </span>
+        </div>
+      </div>
     );
   }
 };

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Meme from '../models/Meme.model';
 import { IApiMemes, IMemeListItem, IApiMemeDetails, IMemeDetails } from 'memegram-commons/models/Meme.model';
-import { Schema, Types } from 'mongoose';
+import Mongoose, { Schema, Types } from 'mongoose';
 
 export const getMemes = async (req: Request, res: Response) => {
   const skip = Number(req.query.skip) || 0; //variable que espera un valor para paginar
@@ -10,11 +10,12 @@ export const getMemes = async (req: Request, res: Response) => {
   const categoryId = req.query.categoryId;
 
   if (categoryId) {
-    match.category = { $eq: new Schema.Types.ObjectId(categoryId.toString()) };
+    match.category = { $eq: new Mongoose.Types.ObjectId(categoryId.toString()) };
   }
 
   const memes = await Meme.aggregate([
     { $match: match },
+    { $sort: { createdAt: -1 } },
     { $skip: skip }, //salta el valor desde (muestra el valor desde ej 10 muestra desde el 11)
     { $limit: limit },
     // Populo category
@@ -109,7 +110,7 @@ export const getMeme = async (req: Request, res: Response) => {
 
   const match: any = {};
   if (memeId) {
-    match._id = { $eq: new Types.ObjectId(memeId.toString()) };
+    match._id = { $eq: new Mongoose.Types.ObjectId(memeId.toString()) };
   }
   const meme = await Meme.aggregate([
     { $match: match },
@@ -169,6 +170,9 @@ export const getMeme = async (req: Request, res: Response) => {
         createdAt: 1,
         updatedAt: 1,
         title: 1,
+      } as {
+        // Para validar que no falte ningún field
+        [key in keyof IMemeDetails]: any;
       },
     },
   ]);

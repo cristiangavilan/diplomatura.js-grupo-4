@@ -10,7 +10,6 @@ export const Login = () => {
   const responseGoogle = async (response: any) => {
     const { tokenId } = response;
     const data = await GoogleSdk.login(tokenId);
-    console.log('data', data);
     state.produce((currentState) => {
       currentState.loggedIn = true;
       currentState.user = data.user;

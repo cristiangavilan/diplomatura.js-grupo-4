@@ -11,7 +11,7 @@ const memegramDB = async () => {
     });
     console.log('Memegram DB : \x1b[32m%s\x1b[0m', 'Online');
   } catch (error) {
-    console.log(Error);
+    console.error(Error);
   }
 };
 

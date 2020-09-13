@@ -164,22 +164,22 @@ const InputMeme = ({ onSave }: TInputMeme) => {
             )}
             <div>
               <div className="col">
-                <button className="btn-pink m-2" onClick={onWantToCancel}>
+                <button className="btn btn-pink m-2" onClick={onWantToCancel}>
                   Cancelar
                 </button>
 
                 {enableCompleteData && (
-                  <button className="btn-pink m-2" type="button" onClick={onSubmit}>
+                  <button className="btn btn-pink m-2" type="button" onClick={onSubmit}>
                     Guardar
                   </button>
                 )}
                 {askCancel && (
                   <div className="alert alert-danger" role="alert">
                     ¿Está seguro que desea cancelar?
-                    <button className="btn-pink m-2" onClick={onCancel}>
+                    <button className="btn btn-pink m-2" onClick={onCancel}>
                       {'si '}
                     </button>
-                    <button className="btn-pink m-2" onClick={() => setAskCancel(false)}>
+                    <button className="btn btn-pink m-2" onClick={() => setAskCancel(false)}>
                       no
                     </button>
                   </div>
