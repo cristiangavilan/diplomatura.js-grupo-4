@@ -73,13 +73,14 @@ export const Register = () => {
   };
 
   return (
-    <div className="form-usuario form-group">
+    <div className="form-usuario">
       <div className="contenedor-form sombra-dark">
-        <h1>Obtener una cuenta</h1>
+        <h1 className="text-center mb-">Obtener una cuenta</h1>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="nombre">Nombre de usuario</label>
           <input
+            className="form-control"
             type="text"
             id="nombre"
             name="nombre"
@@ -90,14 +91,23 @@ export const Register = () => {
           />
         </div>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" required name="email" placeholder="Tu Email" onChange={onChangeMailUser} />
+          <input
+            className="form-control"
+            type="email"
+            id="email"
+            required
+            name="email"
+            placeholder="Tu Email"
+            onChange={onChangeMailUser}
+          />
         </div>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
+            className="form-control"
             type="password"
             id="password"
             required
@@ -108,9 +118,10 @@ export const Register = () => {
           />
         </div>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="confirmar">Confirmar Password</label>
           <input
+            className="form-control"
             type="password"
             id="confirmar"
             required
@@ -121,10 +132,12 @@ export const Register = () => {
           />
         </div>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="password">Imagen de Perfil</label>
+          <div className="text-center">
+            {urlImage && <img className="rounded-circle" src={urlImage} alt={'perfil'} width="50" />}
+          </div>
           <UploadCloudFile onGetUrlImage={getUrlImage} buttonText="Imagen de Perfil" />
-          <div>{urlImage && <img className="rounded-circle" src={urlImage} alt={'perfil'} width="50" />}</div>
         </div>
 
         {showMustCompleteAlert && (
