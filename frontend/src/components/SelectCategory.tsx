@@ -42,7 +42,9 @@ export const SelectCategory = ({
     <div>
       <div className="input-group mb-2">
         <div className="input-group-prepend">
-          <label className="input-group-text bg-pink">Categoría:</label>
+          <label className="input-group-text bg-pink">
+            <i className="fas fa-search"></i> Categoría:
+          </label>
         </div>
         <select
           className="custom-select"

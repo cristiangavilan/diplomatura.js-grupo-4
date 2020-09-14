@@ -31,7 +31,7 @@ export const MemeCard = ({
       <div className="card-body">
         <img src={filename} alt="Futbol" width="100%" />
         <div className="row mt-2">
-          <div className="col text-left">{comments} comentarios</div>
+          <div className="col text-left">{comments === 0 ? 'Sin ' : comments} comentarios</div>
           <div className="col text-right">
             <Link className="btn btn-sm btn-outline-pink" to={`meme-detail/${_id}`}>
               <i className="fas fa-eye"></i> Ver más...

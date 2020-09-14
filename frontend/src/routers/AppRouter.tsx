@@ -8,6 +8,7 @@ import { MemeDetail } from '../pages/MemeDetail';
 import { Register } from '../pages/Register';
 import { SignIn } from '../pages/SignIn';
 import { UploadMeme } from '../pages/UploadMeme';
+import { About } from '../pages/About';
 
 export const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ export const AppRouter = () => {
       >
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
