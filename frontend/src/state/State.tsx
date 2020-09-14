@@ -10,6 +10,7 @@ type StateWithProduce = State & { produce: Produce };
 export default interface State {
   loggedIn: boolean;
   user?: IUserBase;
+  msgLogin?: string | undefined;
 }
 
 export const AppStateContext = createContext({} as StateWithProduce);

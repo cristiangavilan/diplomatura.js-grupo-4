@@ -45,26 +45,33 @@ export const Login = () => {
 
   const onLogin = useCallback(
     async (mailUser, passUser) => {
-      const data = await UserSdk.login(mailUser, passUser);
-      try {
-        if (data?.token) {
+      let message: string = '';
+      if (!mailUser) {
+        message += message ? ', un email' : 'Debes ingresar un email';
+      } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mailUser)) {
+        message += message ? ', el email es inválido' : 'Debes ingresar un email válido';
+      }
+      if (!passUser) {
+        message += message ? ', password' : 'Debes ingresar password';
+      }
+      if (!message) {
+        const data = await UserSdk.login(mailUser, passUser);
+        if (data.msg !== 'ok') {
+          setErrorMessage(data.msg ? data.msg : '');
+          setShowMustCompleteAlert(true);
+        } else {
           state.produce((currentState) => {
             currentState.loggedIn = true;
             currentState.user = data.user;
             ls.set('user-session', data.user);
           });
-
           setLocalJwt(data.token);
           history.push('/');
-        } else {
-          setErrorMessage('Usuario inválido');
-          setShowMustCompleteAlert(true);
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        setErrorMessage(message);
+        setShowMustCompleteAlert(true);
       }
-
-      console.log(data.msg);
     },
     [history, state]
   );
@@ -121,7 +128,7 @@ export const Login = () => {
             Login
           </button>
 
-          <button onClick={() => history.push('/')} className="btn btn-lg btn-pink m-2">
+          <button onClick={() => history.push('/')} className="btn btn-lg btn-pink">
             Cancelar
           </button>
           <GoogleLogin
