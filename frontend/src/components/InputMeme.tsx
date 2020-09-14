@@ -81,6 +81,8 @@ const InputMeme = ({ onSave }: TInputMeme) => {
   const onChangeTitle = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (event?.target.value === '') {
       setShowTitleAlert(true);
+    } else {
+      setShowTitleAlert(false);
     }
     setTitle(event ? event?.target.value : '');
   };

@@ -22,11 +22,32 @@ const UploadCloudFile = ({ onGetUrlImage, buttonText }: TUploadCloudFileProps) =
     const widget = window.cloudinary.createUploadWidget(
       { cloudName, uploadPreset, cropping: true },
       (error: any, result: any) => {
+        let crop: string = '';
         if (error) {
           console.error('uploadWidget error', error);
         } else if (result?.event === 'success') {
           console.info('uploadWidget', result);
-          setUrlImage(result.info.url);
+          const coordenadas = result.info?.coordinates?.custom?.[0];
+          let urlImg = result.info.url;
+          if (coordenadas) {
+            crop =
+              '/upload/' +
+              'x_' +
+              coordenadas[0] +
+              ',y_' +
+              coordenadas[1] +
+              ',w_' +
+              coordenadas[2] +
+              ',h_' +
+              coordenadas[3] +
+              ',c_crop/';
+
+            const firstString = urlImg?.substring(0, urlImg.indexOf('/upload/')) || '';
+            const edu = 'no mires esto';
+            const lastString = urlImg?.substring(urlImg.indexOf('/upload/') + `${'/upload/'}`.length) || '';
+            urlImg = firstString + crop + lastString;
+          }
+          setUrlImage(urlImg);
         }
       }
     );
