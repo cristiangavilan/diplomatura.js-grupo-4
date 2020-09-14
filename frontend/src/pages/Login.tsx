@@ -86,11 +86,11 @@ export const Login = () => {
   };
 
   return (
-    <div className="form-usuario form-group">
+    <div className="form-usuario">
       <div className="contenedor-form sombra-dark">
-        <h1>Login</h1>
+        <h1 className="text-center mb-4">Iniciar Sesión</h1>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -102,7 +102,7 @@ export const Login = () => {
           />
         </div>
 
-        <div className="campo-form">
+        <div className="form-group">
           <label htmlFor="password">password</label>
           <input
             type="password"
@@ -120,24 +120,25 @@ export const Login = () => {
         )}
         <div className="campo-form">
           <button
-            className="btn btn-lg btn-pink"
+            className="btn btn-lg btn-pink btn-block m-2"
             onClick={() => {
               validateAndLogin(mailUser, passUser);
             }}
           >
             Login
           </button>
-
-          <button onClick={() => history.push('/')} className="btn btn-lg btn-pink">
+          <button onClick={() => history.push('/')} className="btn btn-lg btn-pink btn-block m-2">
             Cancelar
           </button>
+        </div>
+        <div className="campo-form">
           <GoogleLogin
             clientId={
               process.env.REACT_APP_GOOGLE_ID ||
               '761781222152-g05l8it03c8hj2aon4o8uoo4f4m9n47l.apps.googleusercontent.com'
             }
-            buttonText="Login"
-            className="btn btn-lg btn-block"
+            buttonText="Entrar con Google"
+            className="btn btn-block m-2 Dark"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
