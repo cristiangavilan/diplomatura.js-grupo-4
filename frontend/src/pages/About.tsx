@@ -17,7 +17,7 @@ export const About = () => {
             <p>Alumnos:</p>
 
             <p className="lead text-right">Maria Jose Rotter</p>
-            <p className="lead text-right">José luis Saavedra</p>
+            <p className="lead text-right">Jose Luis Saavedra</p>
             <p className="lead text-right">Eduardo Cuomo</p>
             <p className="lead text-right">Cristian Gavilan</p>
             <hr />
