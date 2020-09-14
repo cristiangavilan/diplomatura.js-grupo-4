@@ -63,7 +63,7 @@ export const MemeDetail = () => {
               </div>
             )}
             <div className="row">
-              <div className="col">{meme.comments} Comentarios</div>
+              <div className="col">{!meme.comments ? 'Sin ' : meme.comments} Comentarios</div>
               <div className="col text-muted text-right">{moment(meme.createdAt).fromNow()}</div>
             </div>
           </div>

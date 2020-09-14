@@ -65,6 +65,11 @@ export const Navbar = () => {
               <i className="fas fa-home"></i> Home
             </NavLink>
           </li>
+          <li onClick={handleNavCollapse}>
+            <NavLink className="nav-item nav-link" exact to="/about">
+              <i className="fas fa-users"></i> About
+            </NavLink>
+          </li>
 
           {state.loggedIn || (
             <li onClick={handleNavCollapse}>
@@ -80,6 +85,7 @@ export const Navbar = () => {
                   <i className="fa fa-cloud-upload"></i> Upload
                 </NavLink>
               </li>
+
               <li onClick={handleNavCollapse}>
                 <NavLink className="nav-item nav-link" exact to="/logout">
                   <i className="fa fa-sign-out"></i> Logout
